@@ -1,0 +1,24 @@
+{%load static %}
+{%include 'base.html' %}
+{%block 'main'%}
+<link rel="stylesheet" href="{% static 'css/upload_vid.css' %}">
+<div class="u-main-container">
+  <div class="u-overview-form">
+    
+  </div>
+  <div class="u-main-form">
+    <form method="POST" name="vid_upload" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="video_title">Enter a video title</label>
+      {{video_f.video_title}}
+      <label>Enter a video description (optional)</label>
+      {{video_f.video_description}}
+      <label for="video_src">Select the video file</label>
+      {{video_f.video_src}}
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+</div>
+
+
+{%endblock 'main'%}

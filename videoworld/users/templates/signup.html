@@ -1,0 +1,18 @@
+{%include 'base.html'%}
+{%block 'main'%}
+
+<div class='r-form-block'>
+  <form method="POST" name="signup" action="#">
+    {%csrf_token%}
+    <p>Signup for a new account</p>
+    <label for="username">Enter a username</label>
+    {{signup_f.username}}
+    <label for="password">Enter a password</label>
+    {{signup_f.password1}} 
+    <label for="password">Enter the same password</label>
+    {{signup_f.password2}}
+    <button type="submit">Signup</button>
+    <a href="{% url 'login'%}">Already singed up??</a>
+  </form>
+</div>
+{%endblock 'main'%}

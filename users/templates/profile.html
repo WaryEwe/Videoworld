@@ -1,0 +1,34 @@
+{%load static %}
+{%include 'base.html'%}
+<title>{% block title %}Profile for {{user.username}}{% endblock title %}</title>
+{%block 'main'%}
+<link rel="stylesheet" href="{% static 'css/profile.css'%}">
+<div class="p-main-container">
+  <div class="p-header-txt">
+    <h4>Profile for {{req_user.username}}</h4>
+    <p>Joined {{req_user.date_joined.date}} </p>
+    {% if user == req_user %}
+    <a href="{%url 'upload_vid'%}"class="btn btn-primary">Upload a video </a>
+    {%else %} 
+    <button class="btn btn-primary">Follow</button>
+    {% endif %}
+  </div>
+<div class="p-tab-container">
+  <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Videos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">About</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
+</div>
+
+</div>
+{%endblock 'main'%}

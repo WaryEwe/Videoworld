@@ -1,0 +1,32 @@
+{%load static %}
+{%include 'base.html'%}
+{%block 'main'%}
+<link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+<div class="l-container">
+  
+<div class='l-form-block'>
+  <form method="POST" name="login" action="#">
+    {%csrf_token%}
+    <div class="l-form-overview">
+      
+<h4>Log into an existing account</h4>     
+    </div>
+ <div class="mb-3">
+    <label for="username" class="form-label">Enter your username</label>
+    {{login_f.username}}
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    {{login_f.password}}
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Login</button>
+  <div class="l-form-redirect">
+    <a href="{% url 'signup'%}">Don't have an account yet?</a>
+    
+  </div>
+    </div>
+  </form>
+</div>
+</div>
+{%endblock 'main'%}

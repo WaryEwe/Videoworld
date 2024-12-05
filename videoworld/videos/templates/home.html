@@ -1,0 +1,13 @@
+{%include 'base.html'%}
+{%block 'main'%}
+<div class="h-main">
+  <p>Welcome to this streaming site</p>
+ {% if user.is_authenticated %}
+ <p>You're currently logged in as <a href="{%url 'user' username=username%}">{{username}}</a></p> 
+ {%else%}
+  <p>To get started <a href="{%url 'login'%}">Login</a></p>
+
+   {% endif %}  
+</div>
+
+{%endblock 'main'%}

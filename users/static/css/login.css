@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.l-container {
+  max-width: 550px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-self: center;
+  margin-bottom: 10px;
+}
+
+.l-form-block {
+  display: flex;
+  position: relative;
+  max-width: 350px;
+  justify-self: center;
+  align-items: center;
+  text-align: center;
+}
+
+.l-form-block input {
+  margin: 10px;
+  display: block;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 22px;
+  appearance: none;
+  border-color: rgb(233, 233, 233);
+  border: 1px solid #ccc;
+  border-color: white;
+  transition: border-color 0.3s ease;
+  background-color: rgb(245, 245, 245);
+
+}
+
+.l-form-redirect {
+  margin-top: 15px;
+}
+
+.l-form-overview {
+  color: blue;
+  margin-left: 15px;
+  margin-bottom: 15px;
+}

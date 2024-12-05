@@ -1,0 +1,33 @@
+{% load static %}
+{%include 'base.html'%}
+{%block 'main'%}
+<link rel="stylesheet" href="{%static 'css/signup.css'%}">
+<div class="s-container">
+  
+<div class='s-form-block'>
+  <form method="POST" name="signup" action="#">
+    {%csrf_token%}
+    <div class="s-form-overview">
+      
+      <h4>Signup for a new account</h4>
+    </div>
+ <div class="mb-3">
+    <label for="username" class="form-label">Enter a username</label>
+    {{signup_f.username}}
+  </div>
+  <div class="mb-3">
+    <label for="password1" class="form-label">Enter a password</label>
+    {{signup_f.password1}}
+  </div> 
+  <div class="mb-3">
+    <label for="password1" class="form-label">Enter the same password</label>
+    {{signup_f.password2}}
+  </div>
+  <button type="submit" class="btn btn-primary">Signup</button>
+  <div class="s-form-redirect">
+    <a href="{%url 'login'%}">Already signed up?</a> 
+  </div>
+  </form>
+</div>
+</div>
+{%endblock 'main'%}
