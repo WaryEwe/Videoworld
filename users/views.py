@@ -5,7 +5,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import ProfileModel
 from django.urls import reverse
-
+from videos import models
 def login_view(request):
     if request.method == 'POST':
         login_f = LoginForm(request.POST)
@@ -40,10 +40,12 @@ def signup_view(request):
 def profile_view(request, username):
    req_user = get_object_or_404(User, username=username)
    curr_user, created = ProfileModel.objects.get_or_create(user_id=req_user) 
+   videos = models.VideoModel.objects.filter(video_uploader=req_user) 
    url_user = reverse('user', kwargs={'username': username})
    context = {
         'username': username,
         'req_user': req_user,
+        'videos': videos,
     }
    return render(request, 'profile.html', context)
 

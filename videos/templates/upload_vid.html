@@ -7,7 +7,7 @@
     
   </div>
   <div class="u-main-form">
-    <form method="POST" name="vid_upload" enctype="multipart/form-data">
+    <form method="POST" name="vid_upload" accept="video/*" enctype="multipart/form-data">
       {% csrf_token %}
       <label for="video_title">Enter a video title</label>
       {{video_f.video_title}}
@@ -15,7 +15,7 @@
       {{video_f.video_description}}
       <label for="video_src">Select the video file</label>
       {{video_f.video_src}}
-      <button type="submit">Upload</button>
+      <button class="btn btn-primary" type="submit">Upload</button>
     </form>
   </div>
 </div>

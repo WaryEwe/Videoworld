@@ -6,11 +6,18 @@ body {
 
 .u-main-container {
   display: flex;
+  justify-self: center;
+  justify-items: center;
+  justify-content: center;
+  text-align: center;
+  align-self: center;
+  align-items: center;
 }
 
 .u-main-form {
   margin: 10px;
   max-width: 600px;
+  padding: 50px;
 }
 
 .u-main-form input {
@@ -25,4 +32,3 @@ body {
 .u-form-overview {
   margin-top: 15px;
 }
-

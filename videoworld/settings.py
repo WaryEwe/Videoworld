@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-oma$e#jax$wndh3r-u6s!4y*on6-t=!!r#+)%l=cx#ov=jtxok
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 MEDIA_URL = '/media/'
 # Application definition
@@ -117,7 +117,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-MEDIA_ROOT = os.path.join(BASE_DIR,'static')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 

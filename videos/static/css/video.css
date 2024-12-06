@@ -1,0 +1,13 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+}
+
+.v-main-container {
+  display: flex;
+}
+
+.v-content {
+  margin: 45px;
+}

@@ -35,7 +35,7 @@ body {
   border: 1px solid #ccc;
   border-color: white;
   transition: border-color 0.3s ease;
-  background-color: rgb(245, 245, 245);
+  background-color: gray;
 
 }
 
@@ -44,7 +44,6 @@ body {
 }
 
 .s-form-overview {
-  color: blue;
   margin-left: 15px;
   margin-bottom: 15px;
 }

@@ -6,7 +6,9 @@ from .forms import VideoForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
-def home_view(request):
+from users import models
+
+def home_view(request): 
     videos = VideoModel.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
@@ -14,7 +16,7 @@ def home_view(request):
         username = None
     context = {
         'username':username,
-        'videos': videos,
+        'videos':videos,
     }
 
     return render(request, 'home.html', context)
@@ -37,3 +39,24 @@ def upload_vid_view(request):
         'url_user':url_user,
     }
     return render(request, 'upload_vid.html', context)
+
+def video_view(request, video_id):
+    video_link = get_object_or_404(VideoModel, id=video_id)
+    video_link = request.path.split('/')[-2] 
+    video = VideoModel.objects.get(id=video_id)
+    username = models.ProfileModel.objects.filter()
+    context = {
+        'video_link':video_link,
+        'video':video,
+        'username':username,
+    }
+    return render(request, 'video.html', context)
+
+
+
+
+
+
+
+
+

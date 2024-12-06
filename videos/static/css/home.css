@@ -1,6 +1,23 @@
-body
-{
+body {
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
 
+.h-main {
+  justify-self: center;
+}
+
+.h-overview-container {
+  margin-bottom: 15px;
+  padding: 10px;
+  color: red;
+}
+
+.h-videos-container {
+  margin: 10px
+}
+
+.h-user-info {
+  margin-top: 10px;
+}
