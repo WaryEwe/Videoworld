@@ -4,17 +4,25 @@ body {
   height: 100vh;
 }
 
+
 .p-main-container {
-  display: flex;
-  text-align: center;
-  align-items: center;
   justify-self: center;
-  padding: 25px;
-}
-.p-tab-container
-{
-  padding: 25px;
   align-items: center;
-  display: block;
+  display: flex;
+
+}
+
+.p-banner-container {
+  justify-self: center;
+  display: flex;
+}
+
+.p-header-wrapped {
+  display: flex;
+}
+
+.p-picture-container {
   position: relative;
+  top: 35%;
+  left: 10%;
 }

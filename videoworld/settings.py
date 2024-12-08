@@ -33,6 +33,7 @@ FILE_URL = '/media/'
 
 
 INSTALLED_APPS = [
+    'imagekit',
     'users',
     'videos',
     'django.contrib.admin',
