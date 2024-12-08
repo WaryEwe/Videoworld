@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, ProfileForm
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import ProfileModel
@@ -42,10 +42,21 @@ def profile_view(request, username):
    curr_user, created = ProfileModel.objects.get_or_create(user_id=req_user) 
    videos = models.VideoModel.objects.filter(video_uploader=req_user) 
    url_user = reverse('user', kwargs={'username': username})
+   if request.method == 'POST':
+        user_f = ProfileForm(request.POST, request.FILES, instance=req_user)
+        if user_f.is_valid():
+            user_f.save()
+            return redirect('user', username=username)
+
+   else:
+        user_f = ProfileForm(instance=req_user)
+
    context = {
         'username': username,
         'req_user': req_user,
         'videos': videos,
+        'user_f':user_f,
+        'curr_user':curr_user,
     }
    return render(request, 'profile.html', context)
 
