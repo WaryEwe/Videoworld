@@ -2,4 +2,8 @@
 env
 .ENV
 env
+/media
+media/
 media
+media/*
+test
