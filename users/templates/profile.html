@@ -5,13 +5,12 @@
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
 <div class="p-main-container">
   <div class="p-header-wrapped">
-    
   <div class="p-header-container">
     <div class="p-picture-container"> 
-      <img src="{{curr_user.user_picture.url}}" alt="" height="120x">
+      <img src="{{curr_user.user_picture.url}}" alt="Profile picture" height="120x">
     </div>
     <div class="p-banner-container">
-      <img src="{{curr_user.user_banner.url}}" alt="" width="1285px" height="206px">
+      <img src="{{curr_user.user_banner.url}}" alt="Profile banner" width="1285px" height="206px">
     </div>
     <div class="p-username-container">
       
@@ -25,7 +24,6 @@
     </div>
     {% if user == req_user %}
     <div class="p-buttons">
-      
     <a href="{%url 'upload_vid'%}"class="btn btn-primary">Upload a video </a>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#p-edit-modal">Edit profile</button>
     </div>
@@ -45,15 +43,15 @@
       </div>
       <div class="modal-body">
         <div class="p-edit-container">
-          <div class="p-set-desc-container">
-            
-          <p>Edit your account</p>
           <form method="post" action="#" name="editprofile" enctype="multipart/form-data"> 
+            <p>Edit your account</p>
             {% csrf_token %}
-            {{user_desc_f.user_desc}}
+            <div class="p-set-desc-container">
+            <label for="user_desc">Add or edit your profile description</label>
+            {{user_f.user_desc}}
           </div>
           <div class="p-upload-banner-container">
-            {{user_desc_f.user_banner}}
+            {{user_f.user_banner}}
           </div>
           <div class="p-upload-profile_image">
           </div>
@@ -67,12 +65,17 @@
     </div>
   </div>
 </div>
-    
+<div class="p-content-container">
+  
   {% if videos %}
   {% for v in videos %}
   <div class="p-videos-container">
     <div class="p-video-container">
-      
+      <ul>
+        <li>
+          <a href="{%url 'video' video_id=v.id%}"><img src="" width=200px >{{v.video_title}}</a>
+        </li>
+      </ul>
     </div>
   </div>
   {% endfor %}
@@ -83,5 +86,6 @@
   </div>
   {% endif %}
 
+</div>
 </div>
 {%endblock 'main'%}
