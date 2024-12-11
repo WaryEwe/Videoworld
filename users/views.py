@@ -43,24 +43,21 @@ def profile_view(request, username):
    videos = models.VideoModel.objects.filter(video_uploader=req_user) 
    url_user = reverse('user', kwargs={'username': username})
    img_user = ProfileModel.objects.filter(user_id=req_user.id)
+   
    if request.method == 'POST':
-        user_desc_f = ProfileForm(request.POST, request.FILES, instance=curr_user) 
-        if user_desc_f.is_valid():
-            user_desc_f.save()
+        user_f = ProfileForm(request.POST, request.FILES, instance=curr_user) 
+        if user_f.is_valid(): 
+            videos.gen_thumbnai4l()
+            user_f.save()
             return redirect('user', username=username)
-        else:
-            return redirect('test')
-
    else: 
-        user_desc_f = ProfileForm(instance=curr_user) 
+        user_f = ProfileForm(instance=curr_user) 
    context = {
         'username': username,
         'req_user': req_user,
         'videos': videos,
-        'user_desc_f':user_desc_f,
+        'user_f':user_f,
         'curr_user':curr_user,
         'img_user':img_user,
     }
    return render(request, 'profile.html', context)
-
-

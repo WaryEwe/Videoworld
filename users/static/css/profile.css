@@ -26,3 +26,19 @@ body {
   top: 35%;
   left: 2%;
 }
+.p-set-desc-container
+{
+  margin-top: 10px;
+}
+.p-content-container
+{
+  display: flex;
+}
+.p-no-videos-container .p-video-container
+{
+  display: block;
+  position: relative;
+  left: -40%;
+  
+}
+
