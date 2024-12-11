@@ -42,21 +42,24 @@ def profile_view(request, username):
    curr_user, created = ProfileModel.objects.get_or_create(user_id=req_user) 
    videos = models.VideoModel.objects.filter(video_uploader=req_user) 
    url_user = reverse('user', kwargs={'username': username})
+   img_user = ProfileModel.objects.filter(user_id=req_user.id)
    if request.method == 'POST':
-        user_f = ProfileForm(request.POST, request.FILES, instance=req_user)
-        if user_f.is_valid():
-            user_f.save()
+        user_desc_f = ProfileForm(request.POST, request.FILES, instance=curr_user) 
+        if user_desc_f.is_valid():
+            user_desc_f.save()
             return redirect('user', username=username)
+        else:
+            return redirect('test')
 
-   else:
-        user_f = ProfileForm(instance=req_user)
-
+   else: 
+        user_desc_f = ProfileForm(instance=curr_user) 
    context = {
         'username': username,
         'req_user': req_user,
         'videos': videos,
-        'user_f':user_f,
+        'user_desc_f':user_desc_f,
         'curr_user':curr_user,
+        'img_user':img_user,
     }
    return render(request, 'profile.html', context)
 
