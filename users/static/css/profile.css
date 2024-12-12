@@ -26,19 +26,22 @@ body {
   top: 35%;
   left: 2%;
 }
-.p-set-desc-container
-{
+
+.p-set-desc-container {
   margin-top: 10px;
 }
-.p-content-container
-{
+
+.p-content-container {
   display: flex;
 }
-.p-no-videos-container .p-video-container
-{
+
+.p-no-videos-container .p-video-container {
   display: block;
   position: relative;
-  left: -40%;
-  
+  left: -10%;
 }
 
+.p-video-container li {
+  list-style: none;
+
+}

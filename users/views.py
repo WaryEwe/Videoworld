@@ -47,7 +47,6 @@ def profile_view(request, username):
    if request.method == 'POST':
         user_f = ProfileForm(request.POST, request.FILES, instance=curr_user) 
         if user_f.is_valid(): 
-            videos.gen_thumbnai4l()
             user_f.save()
             return redirect('user', username=username)
    else: 

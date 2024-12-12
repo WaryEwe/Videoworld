@@ -8,3 +8,6 @@ class ProfileModel(models.Model):
     user_picture = models.ImageField(default='default/Default_pfp.jpg', upload_to='profile_images')
     def __str__(self, user_id, user_banner):
         return self.user_id.user_banner
+
+
+

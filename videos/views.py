@@ -29,11 +29,6 @@ def upload_vid_view(request):
         if video_f.is_valid():
             video_f_s = video_f.save(commit=False)
             video_f_s.video_uploader = request.user
-            video_path = os.path.join(settings.MEDIA_ROOT, video_instance.video_file.name)
-            #thumbnail_path = generate_thumbnail(video_path, f"{video_instance.id}_thumbnail.jpg")
-
-            # Save the thumbnail path to the model
-            #video_instance.thumbnail = thumbnail_path
             video_f_s.save()
             return redirect('user', username=username)
     else:
