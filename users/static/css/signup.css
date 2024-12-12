@@ -5,19 +5,17 @@ body {
 }
 
 .s-container {
-  max-width: 550px;
   display: flex;
   align-items: center;
   text-align: center;
   justify-self: center;
-  margin-top: 25px;
+  margin-top: 35px;
 }
 
 
 .s-form-block {
   display: flex;
   position: relative;
-  max-width: 350px;
   justify-self: center;
   align-items: center;
   text-align: center;
