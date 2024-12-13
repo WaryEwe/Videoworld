@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
-import os
+import os, ffmpeg, subprocess
 
 def gen_folder(instance, filename):
     user = instance.video_uploader.username
@@ -15,6 +15,5 @@ class VideoModel(models.Model):
     video_date = models.DateField(null=False, auto_now_add=True)
     video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4'])], null=False)
     video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)
-
 def __str__(self, video_id):
     return f'Video {self.video_id}'

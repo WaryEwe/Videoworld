@@ -5,13 +5,27 @@
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
 <main>
     <div class="container profile-header text-center">
+      <div class="p-banner-container">
+        <img src="{{curr_user.user_banner.url}}" width="1500px" height="250px" alt="Profile Banner"> 
+      </div>
+      <div class="p-fields-container">
+        
         <div class="row">
             <div class="col-12">
-              <div class="p-picture"> 
+              <div class="p-picture-container"> 
            <img src="{{curr_user.user_picture.url}}" width="150px" alt="Profile Picture" class="profile-picture">
               </div>
+              <div class="p-info-container">
+                <div class="p-username-container"> 
               <h2 class="mt-3">{{req_user.username}}</h2>
+                </div>
+                <div class="p-desc-container">
+                  
                 <p class="text-muted">{{curr_user.user_desc}}</p>
+                </div>
+                <div class="p-joined-container">
+                  <p class="mt-3">Joined {{req_user.date_joined.date}}</p>
+                </div>
                 {% if user.username == req_user.username %}
                 <div class="p-buttons">
                   
@@ -21,13 +35,17 @@
                 <button class="btn btn-primary">Follow</button>
                 {% endif %}
                 </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Video Gallery -->
+           </div>
+        </div>
+        <div class="p-content-container"> 
     <div class="container">
+      <div class="p-content-header">
         <h3 class="mt-5">Uploaded Videos</h3>
+        
+      </div>
         <div class="row">
           {% if videos %}
           {% for v in videos %}
@@ -49,6 +67,7 @@
           <p>This user haven't uploaded anything yet</p>
           {% endif %}
     </div>
+</div>
 
 </main>
 {%endblock 'main'%}

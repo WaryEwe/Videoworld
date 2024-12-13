@@ -5,12 +5,23 @@ body {
 }
 
 .p-buttons {
-  margin: 10px;
+  margin-top: 10px;
+}
+
+.p-buttons button {
+  margin-right: 2px;
+}
+
+.p-banner-container {
+  display: flex;
 }
 
 .profile-header {
-  background-color: #f8f9fa;
   padding: 40px 0;
+}
+
+.p-picture-container {
+  margin-bottom: 15px;
 }
 
 .profile-picture {
@@ -20,4 +31,23 @@ body {
   border-radius: 50%;
   border: 5px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 10px;
+}
+
+.p-fields-container {
+  display: flex;
+  transform: translateY(-60%);
+}
+
+.p-info-container {
+  transform: translateY(35%);
+  text-align: left;
+  margin-left: 10px;
+}
+
+.p-content-container {
+  display: flex;
+  position: absolute;
+  top: 55%;
+  left: 15.5%;
 }
