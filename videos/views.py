@@ -24,12 +24,14 @@ def home_view(request):
 def upload_vid_view(request):
     username = request.user.username
     url_user = reverse('user', kwargs={'username':username})
+    video_thumb = VideoModel.objects.filter(video_uploader=request.user.id)
     if request.method == 'POST':
         video_f = VideoForm(request.POST, request.FILES)
         if video_f.is_valid():
             video_f_s = video_f.save(commit=False)
             video_f_s.video_uploader = request.user
             video_f_s.save()
+
             return redirect('user', username=username)
     else:
         video_f = VideoForm()
