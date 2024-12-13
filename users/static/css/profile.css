@@ -4,44 +4,20 @@ body {
   height: 100vh;
 }
 
-
-.p-main-container {
-  justify-self: center;
-  align-items: center;
-  display: flex;
-
+.p-buttons {
+  margin: 10px;
 }
 
-.p-banner-container {
-  justify-self: center;
-  display: flex;
+.profile-header {
+  background-color: #f8f9fa;
+  padding: 40px 0;
 }
 
-.p-header-wrapped {
-  display: flex;
-}
-
-.p-picture-container {
-  position: relative;
-  top: 35%;
-  left: 2%;
-}
-
-.p-set-desc-container {
-  margin-top: 10px;
-}
-
-.p-content-container {
-  display: flex;
-}
-
-.p-no-videos-container .p-video-container {
-  display: block;
-  position: relative;
-  left: -10%;
-}
-
-.p-video-container li {
-  list-style: none;
-
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
