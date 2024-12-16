@@ -1,63 +1,9 @@
-<<<<<<< HEAD
-{%load static %} {% load imagekit %}
-=======
 <title>{% block title %}{{req_user.username}}{% endblock title %}</title>
 {%load static %}
 {% load imagekit %}
->>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
 {%include 'base.html'%}
 {%block 'main'%}
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
-<<<<<<< HEAD
-<main>
-    <div class="container profile-header text-center">
-        <div class="row">
-            <div class="col-12">
-              <div class="p-picture"> 
-           <img src="{{curr_user.user_picture.url}}" width="150px" alt="Profile Picture" class="profile-picture">
-              </div>
-              <h2 class="mt-3">{{req_user.username}}</h2>
-                <p class="text-muted">{{curr_user.user_desc}}</p>
-                {% if user.username == req_user.username %}
-                <div class="p-buttons">
-                  
-                <button class="btn btn-primary">Edit profile</button>
-                <button class="btn btn-primary">Upload</button>
-                {%else%}
-                <button class="btn btn-primary">Follow</button>
-                {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Gallery -->
-    <div class="container">
-        <h3 class="mt-5">Uploaded Videos</h3>
-        <div class="row">
-          {% if videos %}
-          {% for v in videos %}
-          
-          <ul>
-            <li> 
-          <div class="col-md-4">
-            <div class="card video-card">
-              <img src="{{v.video_thumbnail.url}}" class="card-img-top video-thumbnail" alt="Video Thumbnail">
-              <div class="card-body">
-                <h5 class="card-title">{{v.video_title}}</h5>
-                <a href="#" class="btn btn-primary">Watch</a>
-              </div>
-            </div>
-            </li>
-          </ul>
-          {% endfor %}
-          {%else %}
-          <p>This user haven't uploaded anything yet</p>
-          {% endif %}
-    </div>
-
-</main>
-=======
 <div class="container profile-header text-center">
   <div class="p-banner-container">
    <img src="{{curr_user.user_banner.url}}" class="img-fluid" width="1500px" height="150px" alt="Profile Banner">
@@ -132,9 +78,7 @@
      <div class="p-content-container">
         <div class="col-md-9">
             <h3>Your Videos</h3>
-              
         <div class="p-videos-container">
-              
             {% for v in videos %}
             <div class="row">
                 <div class="col-md-4 mb-4">
@@ -145,7 +89,7 @@
                       </a>
                     </div>
                     <h5 class="mt-2">{{v.video_title}}</h5>
-                    <p>1,000 views</p>
+                    <p>{{v.video_view}}</p>
                     <p>{{v.video_date}}</p>
                     <p>{{v.video_uploader}}</p>
                     </div>
@@ -160,5 +104,5 @@
 
 {% endif %}
      
->>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
 {%endblock 'main'%}
+

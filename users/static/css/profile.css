@@ -5,17 +5,6 @@ body {
 }
 
 .p-buttons {
-<<<<<<< HEAD
-  margin: 10px;
-}
-
-.profile-header {
-  background-color: #f8f9fa;
-  padding: 40px 0;
-}
-
-.profile-picture {
-=======
   margin-top: 10px;
 }
 
@@ -36,15 +25,12 @@ body {
 .profile-picture {
   margin-bottom: 15px;
   margin-left: 15px;
->>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-=======
 }
 
 .p-content-header {
@@ -71,7 +57,6 @@ body {
 .p-video-container {
   display: block;
   position: relative;
->>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
 }
 
 .p-content-container {

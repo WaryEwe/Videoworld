@@ -9,7 +9,6 @@ def gen_folder(instance, filename):
     user = instance.video_uploader.username
     basename, file_extension = filename.split(".")
     new_filename = "%s-%s.%s" %(user, instance.id, file_extension)
-    return "MyFolder/%s/%s" %(user, new_filename)
     return "VideosUploaded/%s/%s" %(user, new_filename)
 
 class VideoModel(models.Model):
