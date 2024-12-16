@@ -18,7 +18,6 @@ def home_view(request):
         'username':username,
         'videos':videos,
     }
-
     return render(request, 'home.html', context)
 @login_required(login_url='login')
 def upload_vid_view(request):
@@ -30,6 +29,7 @@ def upload_vid_view(request):
             video_f_s = video_f.save(commit=False)
             video_f_s.video_uploader = request.user
             video_f_s.save()
+            video_f_s.gen_thumb()
             return redirect('user', username=username)
     else:
         video_f = VideoForm()

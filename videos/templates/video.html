@@ -1,14 +1,19 @@
+<title>{% block title %}{{video.video_title}}{% endblock title %}</title>
 {%include 'base.html'%}
 {% load static %}
 {%block 'main'%}
 <link rel="stylesheet" href="{% static 'css/video.css'%}">
 <div class="v-main-container">
   <div class="v-content">
-    <video width="1180px" height="620px" controls crossorigin src="{{video.video_src.url}}" type="video/mp4">
-      
+    <video width="1180px" height="620px" controls crossorigin src="{{video.video_src.url}}">      
     </video>
     <h2>{{video.video_title}}</h2>
+    {% if video.video_description %}
+    
     <h6>{{video.video_description}}</h6>
+    {%else%}
+    <p>No description for this video </p>
+    {% endif %}
     <p>{{video.video_date}}</p>
     <a href="{%url 'user' username=video.video_uploader%}">{{video.video_uploader}}</a>
   </div>

@@ -1,73 +1,109 @@
-{%load static %} {% load imagekit %}
+<title>{% block title %}{{req_user.username}}{% endblock title %}</title>
+{%load static %}
+{% load imagekit %}
 {%include 'base.html'%}
-<title>{% block title %}Profile for {{user.username}}{% endblock title %}</title>
 {%block 'main'%}
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
-<main>
-    <div class="container profile-header text-center">
-      <div class="p-banner-container">
-        <img src="{{curr_user.user_banner.url}}" width="1500px" height="250px" alt="Profile Banner"> 
-      </div>
-      <div class="p-fields-container">
-        
-        <div class="row">
-            <div class="col-12">
-              <div class="p-picture-container"> 
-           <img src="{{curr_user.user_picture.url}}" width="150px" alt="Profile Picture" class="profile-picture">
-              </div>
-              <div class="p-info-container">
-                <div class="p-username-container"> 
-              <h2 class="mt-3">{{req_user.username}}</h2>
-                </div>
-                <div class="p-desc-container">
-                  
-                <p class="text-muted">{{curr_user.user_desc}}</p>
-                </div>
-                <div class="p-joined-container">
-                  <p class="mt-3">Joined {{req_user.date_joined.date}}</p>
-                </div>
-                {% if user.username == req_user.username %}
-                <div class="p-buttons">
-                  
-                <button class="btn btn-primary">Edit profile</button>
-                <button class="btn btn-primary">Upload</button>
-                {%else%}
-                <button class="btn btn-primary">Follow</button>
-                {% endif %}
-                </div>
-                </div>
-            </div>
+<div class="container profile-header text-center">
+  <div class="p-banner-container">
+   <img src="{{curr_user.user_banner.url}}" class="img-fluid" width="1500px" height="150px" alt="Profile Banner">
+  </div>
+  <div class="p-fields-container">
+    <div class="row">
+      <div class="col-12">
+        <div class="p-picture-container">
+          <img src="{{curr_user.user_picture.url}}" width="150px" alt="Profile Picture" class="profile-picture">
         </div>
-           </div>
-        </div>
-        <div class="p-content-container"> 
-    <div class="container">
-      <div class="p-content-header">
-        <h3 class="mt-5">Uploaded Videos</h3>
-        
-      </div>
-        <div class="row">
-          {% if videos %}
-          {% for v in videos %}
-          
-          <ul>
-            <li> 
-          <div class="col-md-4">
-            <div class="card video-card">
-              <img src="{{v.video_thumbnail.url}}" class="card-img-top video-thumbnail" alt="Video Thumbnail">
-              <div class="card-body">
-                <h5 class="card-title">{{v.video_title}}</h5>
-                <a href="#" class="btn btn-primary">Watch</a>
-              </div>
-            </div>
-            </li>
-          </ul>
-          {% endfor %}
-          {%else %}
-          <p>This user haven't uploaded anything yet</p>
+        <div class="p-info-container">
+          <div class="p-username-container">
+            <h2 class="mt-3">@{{req_user.username}}</h2>
+          </div>
+          <div class="p-desc-container">
+
+            <p class="text-muted">{{curr_user.user_desc}}</p>
+          </div>
+          <div class="p-joined-container">
+            <p class="mt-3">Joined {{req_user.date_joined.date}}</p>
+          </div>
+          {% if user.username == req_user.username %}
+
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#peditmodal">Edit profile</button>
+          <a href={%url 'upload' %} class="btn btn-primary">Upload</a>
+          {%else%}
+          <button class="btn btn-primary">Follow</button>
           {% endif %}
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+<div class="p-edit-modal">
+  <div class="modal fade" id="peditmodal" tabindex="-1" aria-labelledby="profileeditmodallabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="peditmodallabel">Edit your profile</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Change your profile settings</p>
+          <form action=# method="post" enctype=multipart/form-data>
+            {% csrf_token %}
+            <label for="user_desc">Edit your description</label>
+            {{user_f.user_desc}}
+            <label for="user_picture">Upload a profile picture</label>
+            {{user_f.user_picture}}
+            <label for="user_banner">Upload a profile banner</label>
+            {{user_f.user_banner}}
+            <button class="btn btn-primary">Save</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container p-content-container">
+  
+   <div class="col-md-9">
+     {% if not videos %}
+     <div class="p-no-videos-container"> 
+     <p>This account not haven't posted videos yet</p>
+     </div>
+     {% endif %} 
+     {% if videos %}
+     <div class="p-content-container">
+        <div class="col-md-9">
+            <h3>Your Videos</h3>
+              
+        <div class="p-videos-container">
+              
+            {% for v in videos %}
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="video-thumbnail position-relative">
+                      <a href="{%url 'video' video_id=v.id%}">
+                      <img src="{{v.video_thumb.url}}" width="400px" height="200px" alt="Video Thumbnail">
+                        <div class="play-btn">▶</div>
+                      </a>
+                    </div>
+                    <h5 class="mt-2">{{v.video_title}}</h5>
+                    <p>1,000 views</p>
+                    <p>{{v.video_date}}</p>
+                    <p>{{v.video_uploader}}</p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div> 
+            {% endfor %}
+       </div>
+   </div>
 </div>
 
-</main>
+{% endif %}
+     
 {%endblock 'main'%}

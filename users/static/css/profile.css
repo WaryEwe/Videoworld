@@ -12,31 +12,36 @@ body {
   margin-right: 2px;
 }
 
-.p-banner-container {
+.p-banner-container img {
   display: flex;
+  max-height: 250px;
 }
 
 .profile-header {
   padding: 40px 0;
 }
 
-.p-picture-container {
-  margin-bottom: 15px;
-}
 
 .profile-picture {
+  margin-bottom: 15px;
+  margin-left: 15px;
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-left: 10px;
+}
+
+.p-content-header {
+  display: flex;
+  text-align: start;
+  max-width: 400px;
 }
 
 .p-fields-container {
-  display: flex;
   transform: translateY(-60%);
+  display: flex;
 }
 
 .p-info-container {
@@ -45,9 +50,28 @@ body {
   margin-left: 10px;
 }
 
+.p-videos-container {
+  display: flex;
+}
+
+.p-video-container {
+  display: block;
+  position: relative;
+}
+
 .p-content-container {
   display: flex;
+  flex-direction: column;
+  transform: translateY(-6%);
+}
+
+.p-no-videos-container {
+  display: flex;
   position: absolute;
-  top: 55%;
-  left: 15.5%;
+  text-align: flex-start;
+  transform: translateY(-420%);
+}
+
+.video-thumbnail {
+  width: 100%;
 }

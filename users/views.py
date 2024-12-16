@@ -60,3 +60,7 @@ def profile_view(request, username):
         'img_user':img_user,
     }
    return render(request, 'profile.html', context)
+
+def id_profile_view(request, user_id):
+    req_user = get_object_or_404(User, id=user_id)
+    return redirect('user', username=req_user)
