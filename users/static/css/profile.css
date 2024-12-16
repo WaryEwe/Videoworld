@@ -5,6 +5,7 @@ body {
 }
 
 .p-buttons {
+<<<<<<< HEAD
   margin: 10px;
 }
 
@@ -14,10 +15,78 @@ body {
 }
 
 .profile-picture {
+=======
+  margin-top: 10px;
+}
+
+.p-buttons button {
+  margin-right: 2px;
+}
+
+.p-banner-container img {
+  display: flex;
+  max-height: 250px;
+}
+
+.profile-header {
+  padding: 40px 0;
+}
+
+
+.profile-picture {
+  margin-bottom: 15px;
+  margin-left: 15px;
+>>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
+=======
+}
+
+.p-content-header {
+  display: flex;
+  text-align: start;
+  max-width: 400px;
+}
+
+.p-fields-container {
+  transform: translateY(-60%);
+  display: flex;
+}
+
+.p-info-container {
+  transform: translateY(35%);
+  text-align: left;
+  margin-left: 10px;
+}
+
+.p-videos-container {
+  display: flex;
+}
+
+.p-video-container {
+  display: block;
+  position: relative;
+>>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
+}
+
+.p-content-container {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-6%);
+}
+
+.p-no-videos-container {
+  display: flex;
+  position: absolute;
+  text-align: flex-start;
+  transform: translateY(-420%);
+}
+
+.video-thumbnail {
+  width: 100%;
 }

@@ -10,4 +10,9 @@ body {
 
 .v-content {
   margin: 45px;
+  display: flex;
+}
+
+.v-content video {
+  display: flex;
 }

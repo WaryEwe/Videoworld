@@ -37,18 +37,25 @@ def signup_view(request):
         'signup_f': signup_f,
     }
     return render(request, 'signup.html', context)
-
+#function
 def profile_view(request, username):
    req_user = get_object_or_404(User, username=username)
    curr_user, created = ProfileModel.objects.get_or_create(user_id=req_user) 
    videos = models.VideoModel.objects.filter(video_uploader=req_user) 
    url_user = reverse('user', kwargs={'username': username})
    img_user = ProfileModel.objects.filter(user_id=req_user.id)
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
    if request.method == 'POST':
         user_f = ProfileForm(request.POST, request.FILES, instance=curr_user) 
         if user_f.is_valid(): 
             user_f.save()
+<<<<<<< HEAD
             
+=======
+>>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
             return redirect('user', username=username)
    else: 
         user_f = ProfileForm(instance=curr_user) 
@@ -61,3 +68,10 @@ def profile_view(request, username):
         'img_user':img_user,
     }
    return render(request, 'profile.html', context)
+<<<<<<< HEAD
+=======
+
+def id_profile_view(request, user_id):
+    req_user = get_object_or_404(User, id=user_id)
+    return redirect('user', username=req_user)
+>>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582

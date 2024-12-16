@@ -4,7 +4,10 @@ click==8.1.7
 curlylint==0.13.1
 Django==5.1.3
 django-appconf==1.0.6
+<<<<<<< HEAD
 django-default-imagefield==0.5.5
+=======
+>>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
 django-imagekit==5.0.0
 ffmpeg==1.4
 mysqlclient==2.2.6
