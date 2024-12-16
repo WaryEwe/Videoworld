@@ -18,11 +18,7 @@ class VideoModel(models.Model):
     video_description = models.TextField(max_length=70, null=True, blank=True)
     video_date = models.DateField(null=False, auto_now_add=True)
     video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4'])], null=False)
-    def gen_thumbnail(instance, self):
-        video_path = instance.video_src
-        video_thumb_path = 'media/test' 
-        subprocess.call(['ffmpeg', '-i', video_path, '-ss', '00:00:00.000','-vframes', '1', video_thumb_path])
-    video_thumb = models.ImageField(upload_to=gen_folder)            
+    video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)            
 
     def gen_thumb(self):
         video_path = self.video_src.path
