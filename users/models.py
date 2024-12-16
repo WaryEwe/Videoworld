@@ -1,10 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 import os
-<<<<<<< HEAD
-=======
-
->>>>>>> 15df65e2f661534f866f1fb1b35f0a9c7cd67582
 class ProfileModel(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     user_desc = models.CharField(max_length=40, null=True, blank=True)
