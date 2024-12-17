@@ -18,6 +18,7 @@ class VideoModel(models.Model):
     video_date = models.DateField(null=False, auto_now_add=True)
     video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4'])], null=False)
     video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)            
+    video_view = models.IntegerField(default=0, null=False)
 
     def gen_thumb(self):
         video_path = self.video_src.path

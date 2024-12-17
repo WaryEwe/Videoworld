@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
 from users import models
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
 
 def home_view(request): 
     videos = VideoModel.objects.all()
@@ -53,12 +55,4 @@ def video_view(request, video_id):
         'username':username,
     }
     return render(request, 'video.html', context)
-
-
-
-
-
-
-
-
 

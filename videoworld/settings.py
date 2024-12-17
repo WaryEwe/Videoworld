@@ -33,6 +33,7 @@ FILE_URL = '/media/'
 
 
 INSTALLED_APPS = [
+    'hitcount',
     'imagekit',
     'users',
     'videos',

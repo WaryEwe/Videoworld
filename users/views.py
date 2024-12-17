@@ -63,3 +63,9 @@ def profile_view(request, username):
 def id_profile_view(request, user_id):
     req_user = get_object_or_404(User, id=user_id)
     return redirect('user', username=req_user)
+
+def logout_view(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('home')
+
