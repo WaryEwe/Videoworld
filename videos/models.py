@@ -5,6 +5,9 @@ import os, subprocess, ffmpeg
 from django.conf import settings
 import os, ffmpeg, subprocess
 from hitcount.models import HitCountMixin
+from django.contrib.contenttypes.fields import GenericRelation
+from hitcount.models import HitCount
+
 def gen_folder(instance, filename):
     user = instance.video_uploader.username
     basename, file_extension = filename.split(".")
@@ -14,7 +17,7 @@ def gen_folder(instance, filename):
 class VideoModel(models.Model, HitCountMixin):
     video_uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     video_title = models.CharField(max_length=40, null=False)
-    video_description = models.TextField(max_length=70, null=True, blank=True)
+    video_desc = models.TextField(max_length=70, null=True, blank=True)
     video_date = models.DateField(null=False, auto_now_add=True)
     video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4'])], null=False)
     video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)            
@@ -34,6 +37,11 @@ class VideoModel(models.Model, HitCountMixin):
 
     def save_thumb(self, thumb_path):
         super().save()
+
+class CommentModel(models.Model):
+    comment_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment_text = models.TextField(max_length=100, null=False, blank=False)
+    comment_date = models.DateField(auto_now_add=True, null=False)
 
 def __str__(self, video_id):
     return f'Video {self.video_id}'

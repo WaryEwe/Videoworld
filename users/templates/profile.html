@@ -75,8 +75,11 @@
      </div>
      {% endif %}
      {% if videos %} 
+
+       <div class="p-content-overview-container">
+         <h3>Your videos</h3>
+       </div>
      <div class="p-content-container">
-         
        {% for v in videos %}
        <div class="p-video-container">
           
@@ -89,7 +92,7 @@
                 </a>
                </div>
                 <h5 class="mt-2">{{v.video_title}}</h5>
-                  <p>{{v.video_view}} views</p>
+                  <p>0 views</p>
                     <p>{{v.video_date}}</p>
                     </div>
        </div> 

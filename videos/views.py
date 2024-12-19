@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from .models import VideoModel
-from .forms import VideoForm
+from .models import VideoModel, CommentModel
+from .forms import VideoForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -11,6 +11,7 @@ from hitcount.models import HitCount
 from hitcount.views import HitCountDetailView 
 
 def home_view(request):
+    username = models.ProfileModel.objects.filter()
     videos = VideoModel.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
@@ -48,13 +49,22 @@ def video_view(request, video_id):
     video_link = request.path.split('/')[-2] 
     video = VideoModel.objects.get(id=video_id)
     username = models.ProfileModel.objects.filter()
-    video_view, created = HitCount.objects.get_or_create(content_type=video_id, id=video_id)
-    video_view.hit()
+    comments = CommentModel.objects.all()
+    if request.method == 'POST':
+        comment_f = CommentForm(request.POST)
+        if comment_f.is_valid():
+            comment_f_s = comment_f.save(commit=False)
+            comment_f_s.comment_author = request.user
+            comment_f_s.save()
+            return redirect('video', video_id=video_id)
+    else:
+        comment_f = CommentForm()
     context = {
         'video_link':video_link,
         'video':video,
         'username':username,
-        'video_view': video_view,
+        'comment_f':comment_f,
+        'comments':comments,
     }
     return render(request, 'video.html', context)
 

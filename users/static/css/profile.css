@@ -45,19 +45,38 @@ body {
   margin-left: 10px;
 }
 
-.p-video-container {
+
+.p-content-overview-container {
+  margin-bottom: 15px;
   display: flex;
   position: relative;
-  flex-direction: row;
-  margin-right: 15px;
+  transform: translateY(-180%);
 }
+
+.p-videos-container {
+  display: flex;
+  position: relative;
+  padding: 25px;
+}
+
+.p-video-container {
+  display: block;
+  position: relative;
+  width: 400px;
+  height: 200px;
+  margin-right: 20px;
+  background-color: black;
+}
+
 .p-video-container img {
-  max-width: 400px;
-  max-height: 200px;
+  height: 200px;
+  width: 400px;
 }
+
 .p-content-container {
   display: flex;
-  transform: translateY(-20%);
+  transform: translateY(-30%);
+  position: relative;
 
 }
 
