@@ -78,20 +78,21 @@
      <div class="p-content-container">
          
        {% for v in videos %}
-       
+       <div class="p-video-container">
+          
          <div class="col-md-4 mb-4">
            <div class="video-thumbnail position-relative">
             <a href="{%url 'video' video_id=v.id%}">
               <div class="p-video-thumbnail">
-                <img src="{{v.video_thumb.url}}" width="300px" height="160px" alt="Video Thumbnail">
+                <img src="{{v.video_thumb.url}}" alt="Video Thumbnail">
                  </div>
-              <div class="play-btn">▶</div>
                 </a>
                </div>
                 <h5 class="mt-2">{{v.video_title}}</h5>
                   <p>{{v.video_view}} views</p>
                     <p>{{v.video_date}}</p>
                     </div>
+       </div> 
                     {% endfor %}
        {% endif %}
        </div>

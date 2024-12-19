@@ -46,16 +46,18 @@ body {
 }
 
 .p-video-container {
-  position: relative;
   display: flex;
-  background-color: gray;
-  padding: 40px;
+  position: relative;
+  flex-direction: row;
+  margin-right: 15px;
 }
-
+.p-video-container img {
+  max-width: 400px;
+  max-height: 200px;
+}
 .p-content-container {
   display: flex;
   transform: translateY(-20%);
-  position: relative;
 
 }
 

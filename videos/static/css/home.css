@@ -9,15 +9,30 @@ body {
 }
 
 .h-overview-container {
-  margin-bottom: 15px;
-  padding: 10px;
-  color: red;
+}
+.h-content-container {
+  display: flex;
+  transform: translateY(40%);
+}
+.h-video-thumbnail  img {
+  max-width: 400px;
+  max-height: 200px;
 }
 
 .h-videos-container {
-  margin: 10px
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  padding: 25px;
 }
-
-.h-user-info {
-  margin-top: 10px;
+.h-video-container {
+  display: flex;
+  position: relative;
+  margin-right: 10px;
+}
+.h-content-header-container {
+  display: flex;
+  position: relative;
+  max-height: 150px;
+  transform: translateY(-45%);
 }

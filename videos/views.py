@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from users import models
 from hitcount.models import HitCount
-from hitcount.views import HitCountMixin
+from hitcount.views import HitCountDetailView 
 
 def home_view(request):
     videos = VideoModel.objects.all()
@@ -32,7 +32,6 @@ def upload_vid_view(request):
             video_f_s = video_f.save(commit=False)
             video_f_s.video_uploader = request.user
             video_f_s.save()
-
             video_f_s.gen_thumb()
             return redirect('user', username=username)
     else:
@@ -49,10 +48,13 @@ def video_view(request, video_id):
     video_link = request.path.split('/')[-2] 
     video = VideoModel.objects.get(id=video_id)
     username = models.ProfileModel.objects.filter()
+    video_view, created = HitCount.objects.get_or_create(content_type=video_id, id=video_id)
+    video_view.hit()
     context = {
         'video_link':video_link,
         'video':video,
         'username':username,
+        'video_view': video_view,
     }
     return render(request, 'video.html', context)
 
