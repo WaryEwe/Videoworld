@@ -19,12 +19,8 @@ body {
 
 .v-status-container {
   display: flex;
-  position: absolute;
-  padding: 40px;
-  padding-bottom: 80px;
-  background: gray;
-  max-height: 200px;
-  justify-items: flex-start;
+  position: relative;
+  transform: translateY(-15%);
 }
 
 .v-video-container {
@@ -34,7 +30,6 @@ body {
   height: 0;
   overflow: hidden;
   max-width: 100%;
-  background: #000;
 }
 
 .video-container iframe {

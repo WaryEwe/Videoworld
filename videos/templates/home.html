@@ -23,7 +23,7 @@
      </div>
      {% for v in videos  %}
      <div class="h-video-link">
-       <a href="{%url 'video' video_id=v.id%}">{{v.video_title}}</a>
+       <a href="{%url 'video' video_id=v.id %}">{{v.video_title}}</a>
      </div>
      {% endfor %}
      {%else%}

@@ -10,7 +10,7 @@ from users import models
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 
-def home_view(request): 
+def home_view(request):
     videos = VideoModel.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
