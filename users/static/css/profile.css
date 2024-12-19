@@ -33,11 +33,6 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.p-content-header {
-  display: flex;
-  text-align: start;
-  max-width: 400px;
-}
 
 .p-fields-container {
   transform: translateY(-60%);
@@ -50,19 +45,18 @@ body {
   margin-left: 10px;
 }
 
-.p-videos-container {
-  display: flex;
-}
-
 .p-video-container {
-  display: block;
   position: relative;
+  display: flex;
+  background-color: gray;
+  padding: 40px;
 }
 
 .p-content-container {
   display: flex;
-  flex-direction: column;
-  transform: translateY(-6%);
+  transform: translateY(-20%);
+  position: relative;
+
 }
 
 .p-no-videos-container {
@@ -70,8 +64,4 @@ body {
   position: absolute;
   text-align: flex-start;
   transform: translateY(-420%);
-}
-
-.video-thumbnail {
-  width: 100%;
 }
