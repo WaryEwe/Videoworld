@@ -12,10 +12,6 @@ body {
   margin: 45px;
 }
 
-.v-content video {
-  display: flex;
-
-}
 
 .v-status-container {
   display: flex;
@@ -41,12 +37,9 @@ body {
 }
 
 .v-title-container {
-  color: green;
-  transform: translateY(-85%);
   display: flex;
-  position: absolute;
+  position: relative;
   align-items: flex-start;
-  left: 8px;
   justify-content: flex-start;
 
 }
@@ -75,4 +68,14 @@ body {
   display: flex;
   position: absolute;
   margin-top: 10px;
+}
+
+.v-comment-container {
+  display: flex;
+}
+
+.v-non-account-container {
+  display: flex;
+  position: relative;
+  transform: translateY(-40%);
 }

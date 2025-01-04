@@ -25,14 +25,17 @@ body {
 .profile-picture {
   margin-bottom: 15px;
   margin-left: 15px;
-  width: 150px;
-  height: 150px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.p-picture-container img {
+  display: flex;
+}
 
 .p-fields-container {
   transform: translateY(-60%);
@@ -47,10 +50,10 @@ body {
 
 
 .p-content-overview-container {
-  margin-bottom: 15px;
+  margin-bottom: 45px;
   display: flex;
   position: relative;
-  transform: translateY(-180%);
+  transform: translateY(-110%);
 }
 
 .p-videos-container {
@@ -60,23 +63,26 @@ body {
 }
 
 .p-video-container {
-  display: block;
+  display: flex;
   position: relative;
-  width: 400px;
-  height: 200px;
+  width: 300px;
+  height: 160px;
   margin-right: 20px;
+  margin-bottom: 200px;
   background-color: black;
 }
 
 .p-video-container img {
-  height: 200px;
-  width: 400px;
+  height: 160px;
+  width: 300px;
 }
 
 .p-content-container {
   display: flex;
-  transform: translateY(-30%);
+  transform: translateY(-20%);
   position: relative;
+  flex-direction: flex-start;
+  flex-wrap: wrap;
 
 }
 
@@ -85,4 +91,32 @@ body {
   position: absolute;
   text-align: flex-start;
   transform: translateY(-420%);
+}
+
+.p-video-title-container {
+  width: 300px;
+}
+
+.p-video-date-container {
+  width: 300px;
+}
+
+.p-banner-edit {
+  display: flex;
+  position: relative;
+  width: 120px;
+  height: 50px;
+  left: 93%;
+}
+
+.p-banner-edit-button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }

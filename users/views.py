@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
-from .forms import LoginForm, SignupForm, ProfileForm
+from .forms import LoginForm, SignupForm, ProfileForm  
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import ProfileModel
 from django.urls import reverse
 from videos import models
-
+from hitcount.models import HitCount
+from hitcount.views import HitCountDetailView 
+from hitcount.views import HitCountMixin
 def login_view(request):
     if request.method == 'POST':
         login_f = LoginForm(request.POST)
@@ -37,11 +39,11 @@ def signup_view(request):
         'signup_f': signup_f,
     }
     return render(request, 'signup.html', context)
-#function
+
 def profile_view(request, username):
    req_user = get_object_or_404(User, username=username)
    curr_user, created = ProfileModel.objects.get_or_create(user_id=req_user) 
-   videos = models.VideoModel.objects.filter(video_uploader=req_user) 
+   videos = models.VideoModel.objects.filter(video_uploader=req_user).order_by('-video_date')
    url_user = reverse('user', kwargs={'username': username})
    img_user = ProfileModel.objects.filter(user_id=req_user.id)
    if request.method == 'POST':
@@ -58,6 +60,7 @@ def profile_view(request, username):
         'user_f':user_f,
         'curr_user':curr_user,
         'img_user':img_user,
+
     }
    return render(request, 'profile.html', context)
 def id_profile_view(request, user_id):

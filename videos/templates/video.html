@@ -1,25 +1,30 @@
 <title>{% block title %}{{video.video_title}}{% endblock title %}</title>
 {%include 'base.html'%}
 {% load static %}
+{% load hitcount_tags %}
 {%block 'main'%}
 <link rel="stylesheet" href="{% static 'css/video.css'%}">
 <script src="{% static 'hitcount/jquery.postcsrf.js' %}"></script>
+<script src="{% static 'videoplayer.js'%}"></script>
 <div class="v-main-container">
   <div class="v-content">
-    <div class="v-video-container">
-      
-    <video width="1180px" height="620px" controls  src="{{video.video_src.url}}">      
+    <div class="v-video-container"> 
+    <video width="1180px" height="620px" class="video-controller" controls src="{{video.video_src.url}}">      
+    Your browser does not support the video tag.
     </div>
     </video>
     <div class="v-status-container">
       
 <div class="row mt-3">
         <div class="col-12">
+          <div class="v-title-container">
+            
           <h2 class="fw-bold">{{video.video_title}}</h2>
+          </div>
             <p class="text-muted">Published on {{video.video_date}}</p>
-            <p class="text-muted">0 views</p>
+            <p class="text-muted">{{video_view.hits}} views</p>
+            
             <p >Published by <a href="{% url 'user' username=video.video_uploader%}">{{video.video_uploader}}</a></p>
-
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Description</h5>
@@ -31,12 +36,17 @@
                 </div>
             </div>
         </div>
+        <div class="v-likes-container">
+          <p>{{video.video_likes}} Likes</p>
+        </div>
     </div>
+  </div>
+  <div> 
   </div>
   <div class="v-comment-publish-container">
 <div class="container mt-5">
+  {% if user.is_authenticated %}
     <h2>Leave a Comment</h2>
-    <form>
         <div class="mb-3">
           <form method="POST" action="#">
            {% csrf_token %} 
@@ -50,15 +60,40 @@
         </div>
     </form>
 </div>
+{%else%}
+<div class="v-non-account-container">
+<p>You must be logged in to be able to comment <a href="{%url 'login' %}">Login</a></p>
+</div>
+
+{% endif %}
   </div>
   <div class="v-comments-container">
-    <h3>Comments</h3>
-    <div class="v-comment-container">
-      <h6>{{comments.comment_author}}</h6>
-      <p>{{comments.comment_text}}</p>
-      <p>{{comments.comment_date}}</p>
-    </div>
+
+    <h4>Comments {{comments|length}}</h4>
+      {% if comments %}
+        {% for c in comments %}
+        <div class="v-comment-container">
+        <div class="card mb-4">
+          <div class="card-body">
+            <p>{{c.comment_text}}</p>
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <img
+                  src="{{c.comment_picture.user_picture.url}}"
+                  alt="avatar"
+                  width="25"
+                  height="25"
+                  />
+                <p class="small mb-0 ms-2">{{c.comment_author}}</p>
+                <p class="small mb-0 ms-2">{{c.comment_date}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+      {% endif %}
   </div>
 </div>
-</div>
 {%endblock 'main'%}
+</div>

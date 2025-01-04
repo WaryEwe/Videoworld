@@ -9,5 +9,3 @@ class ProfileModel(models.Model):
     def __str__(self, user_id, user_banner):
         return self.user_id.user_banner
 
-
-

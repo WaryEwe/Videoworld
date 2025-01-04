@@ -1,18 +1,21 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from .models import VideoModel, CommentModel
-from .forms import VideoForm, CommentForm
+from .models import VideoModel, CommentModel, CommentReplyModel
+from .forms import VideoForm, CommentForm, CommentReplyForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
-from users import models
 from hitcount.models import HitCount
 from hitcount.views import HitCountDetailView 
+from hitcount.views import HitCountMixin
+import users
+from users import models
 
 def home_view(request):
     username = models.ProfileModel.objects.filter()
-    videos = VideoModel.objects.all()
+    videos = VideoModel.objects.order_by('-video_date')
+    accounts = models.ProfileModel.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
     else:
@@ -20,6 +23,7 @@ def home_view(request):
     context = {
         'username':username,
         'videos':videos,
+        'accounts':accounts,
     }
     return render(request, 'home.html', context)
 @login_required(login_url='login')
@@ -45,26 +49,30 @@ def upload_vid_view(request):
     return render(request, 'upload_vid.html', context)
 
 def video_view(request, video_id):
-    video_link = get_object_or_404(VideoModel, id=video_id)
+    req_video = get_object_or_404(VideoModel, id=video_id)
     video_link = request.path.split('/')[-2] 
     video = VideoModel.objects.get(id=video_id)
-    username = models.ProfileModel.objects.filter()
-    comments = CommentModel.objects.all()
+    comments = CommentModel.objects.filter(comment_video=video_id)
+    video_view = HitCount.objects.get_for_object(video)
+    video_count = HitCountMixin.hit_count(request, video_view)
+    video_likes = []
+
     if request.method == 'POST':
         comment_f = CommentForm(request.POST)
         if comment_f.is_valid():
             comment_f_s = comment_f.save(commit=False)
-            comment_f_s.comment_author = request.user
+            comment_f_s.comment_author = request.user 
+            comment_f_s.comment_video = req_video 
             comment_f_s.save()
-            return redirect('video', video_id=video_id)
+            return redirect('video', video_id=video_link)
     else:
         comment_f = CommentForm()
     context = {
         'video_link':video_link,
         'video':video,
-        'username':username,
+        'video_view':video_view,
         'comment_f':comment_f,
         'comments':comments,
     }
-    return render(request, 'video.html', context)
 
+    return render(request, 'video.html', context)

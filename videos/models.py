@@ -5,12 +5,14 @@ import os, subprocess, ffmpeg
 from django.conf import settings
 import os, ffmpeg, subprocess
 from hitcount.models import HitCountMixin
-from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCount
+from django.contrib.contenttypes.fields import GenericRelation
+import users 
+
 
 def gen_folder(instance, filename):
     user = instance.video_uploader.username
-    basename, file_extension = filename.split(".")
+    basename, file_extension = filename.split(".", 1)
     new_filename = "%s-%s.%s" %(user, instance.id, file_extension)
     return "VideosUploaded/%s/%s" %(user, new_filename)
 
@@ -22,6 +24,7 @@ class VideoModel(models.Model, HitCountMixin):
     video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4'])], null=False)
     video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)            
     video_view = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
+    video_likes = models.IntegerField(null=False, default=0)
 
 
     def gen_thumb(self):
@@ -39,9 +42,18 @@ class VideoModel(models.Model, HitCountMixin):
         super().save()
 
 class CommentModel(models.Model):
-    comment_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment_author = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    comment_video = models.ForeignKey(VideoModel, null=False, on_delete=models.CASCADE, default=1)
+    comment_picture = models.ForeignKey(users.models.ProfileModel, null=False, on_delete=models.CASCADE, default=1)
     comment_text = models.TextField(max_length=100, null=False, blank=False)
     comment_date = models.DateField(auto_now_add=True, null=False)
+
+class CommentReplyModel(models.Model):
+    comment_author = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    comment_video = models.ForeignKey(VideoModel, null=False, on_delete=models.CASCADE, default=1)
+    reply_comment = models.ForeignKey(CommentModel, null=False, on_delete=models.CASCADE, default=1)
+    reply_comment_text = models.TextField(max_length=100, null=False)
+    reply_comment_date = models.DateField(auto_now_add=True, null=False)
 
 def __str__(self, video_id):
     return f'Video {self.video_id}'

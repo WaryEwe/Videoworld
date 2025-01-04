@@ -1,10 +1,33 @@
 <title>{% block title %}{{req_user.username}}{% endblock title %}</title>
 {%load static %}
-{% load imagekit %}
+{% load hitcount_tags %}
 {%include 'base.html'%}
 {%block 'main'%}
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
 <div class="container profile-header text-center">
+  {% if user == req_user %}
+  <div class="p-banner-edit"> 
+    <button class="p-banner-edit-button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit banner</button>
+  </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endif %}
   <div class="p-banner-container">
    <img src="{{curr_user.user_banner.url}}" class="img-fluid" width="1500px" height="150px" alt="Profile Banner">
   </div>
@@ -37,6 +60,7 @@
     </div>
   </div>
 </div>
+
 <div class="p-edit-modal">
   <div class="modal fade" id="peditmodal" tabindex="-1" aria-labelledby="profileeditmodallabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -51,10 +75,6 @@
             {% csrf_token %}
             <label for="user_desc">Edit your description</label>
             {{user_f.user_desc}}
-            <label for="user_picture">Upload a profile picture</label>
-            {{user_f.user_picture}}
-            <label for="user_banner">Upload a profile banner</label>
-            {{user_f.user_banner}}
             <button class="btn btn-primary">Save</button>
           </form>
         </div>
@@ -71,7 +91,7 @@
    <div class="col-md-9">
      {% if not videos %}
      <div class="p-no-videos-container"> 
-     <p>This account not haven't posted videos yet</p>
+     <p>This account haven't posted any videos yet</p>
      </div>
      {% endif %}
      {% if videos %} 
@@ -80,20 +100,25 @@
          <h3>Your videos</h3>
        </div>
      <div class="p-content-container">
-       {% for v in videos %}
+       {% for v in videos  %}
        <div class="p-video-container">
-          
          <div class="col-md-4 mb-4">
            <div class="video-thumbnail position-relative">
             <a href="{%url 'video' video_id=v.id%}">
-              <div class="p-video-thumbnail">
                 <img src="{{v.video_thumb.url}}" alt="Video Thumbnail">
                  </div>
+                 <div class="p-video-thumbnail">
                 </a>
                </div>
+               <div class="p-video-title-container">
                 <h5 class="mt-2">{{v.video_title}}</h5>
-                  <p>0 views</p>
-                    <p>{{v.video_date}}</p>
+               </div>
+               <div class="p-video-view-container">
+                 <p>{{v.hit_count.hits}} views</p>
+               </div>
+                  <div class="p-video-date-container">
+                 <p>{{v.video_date}}</p>
+                  </div>
                     </div>
        </div> 
                     {% endfor %}
