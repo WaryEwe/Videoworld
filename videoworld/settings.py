@@ -34,6 +34,7 @@ FILE_URL = '/media/'
 
 
 INSTALLED_APPS = [
+    'widget_tweaks',
     'hitcount',
     'imagekit',
     'users',

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate, logout
-from .forms import LoginForm, SignupForm, ProfileForm  
+from .forms import LoginForm, SignupForm, ProfileForm, ProfileSettingsForm
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import ProfileModel
@@ -9,6 +9,8 @@ from videos import models
 from hitcount.models import HitCount
 from hitcount.views import HitCountDetailView 
 from hitcount.views import HitCountMixin
+from django.contrib.auth.decorators import login_required
+
 def login_view(request):
     if request.method == 'POST':
         login_f = LoginForm(request.POST)
@@ -72,3 +74,24 @@ def logout_view(request):
         logout(request)
         return redirect('home')
 
+@login_required(login_url='login')
+def settings_view(request):
+    if request.method == 'POST':
+        change_username = ProfileSettingsForm(request.POST, instance=request.user)
+        if change_username.is_valid():
+            change_username.save()
+            return redirect('settings')
+
+    else:
+        change_username = ProfileSettingsForm(instance=request.user)
+    context = {
+        'change_username':change_username
+    }
+    return render(request, 'settings.html', context)
+
+@login_required(login_url='login')
+def delete_view(request, username):
+    request.user.delete()
+    return redirect('home')
+
+    

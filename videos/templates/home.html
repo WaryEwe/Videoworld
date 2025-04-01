@@ -4,6 +4,7 @@
 {%block 'main'%}
 
 <link rel="stylesheet" href="{%static 'css/home.css'%}">
+  
 <div class="h-main">
   <div class="h-overview-container">
     <div class="h-welcome-container">
@@ -16,26 +17,14 @@
  <p>You're currently logged in as <a href="{%url 'user' username=username%}">{{user.username}}</a></p> 
  </div>
  {%else%}
- <div class="non-account-container">
-   
- <p>To get started <a href="{%url 'login'%}">Login</a> Or <a href="{%url 'signup'%}">Signup</a></p>
- </div>
- <h2>Latest videos</h2>
   </div>
  {% endif %}  
- <div class="h-accounts-container">
-   <div class="h-accounts-header">
-     <h2>All Accounts</h2>
-   </div>
-   <div>
-     {% for a in accounts %}
-     <p>{{a.user_id}}</p>
-     <img src="{{a.user_picture.url}}" width="20px" alt="">
-     {% endfor %}
-   </div>
- </div>
    <div class="h-content-container">
      {% if videos %}
+     <div class="h-content-overview">
+       
+     <h2>Latest videos</h2>
+     </div>
      <div class="h-videos-container"> 
      {% for v in videos %}
      <div class="h-video-container">
@@ -48,7 +37,6 @@
                 </a>
                </div>
                <div class="h-video-title">
-                 
                <h5 class="mt-2">{{v.video_title}}</h5>
                </div>
                <p>{{v.hit_count.hits}} views</p>

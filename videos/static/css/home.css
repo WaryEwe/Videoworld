@@ -4,21 +4,15 @@ body {
   height: 100vh;
 }
 
-
-.h-content-container {
-  display: flex;
-  justify-content: flex-start;
-
+.h-main {
+  justify-content: center;
+  margin-top: 25px;
 }
 
-.h-overview-container {
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
 
-}
 
 .h-welcome-container {
+  text-align: center;
   margin-top: 15px;
   color: red;
 }
@@ -28,6 +22,10 @@ body {
   align-items: center;
 }
 
+.h-account-refer-container {
+  text-align: center;
+}
+
 .h-video-thumbnail img {
   width: 300px;
   height: 160px;
@@ -35,10 +33,11 @@ body {
 }
 
 .h-videos-container {
+  margin-top: 25px;
   display: flex;
   position: relative;
   flex-wrap: wrap;
-  width: 1700px;
+  max-width: 1700px;
   transform: translateX(10%)
 }
 
@@ -59,5 +58,14 @@ body {
 }
 
 .h-video-date-container {
-  width: 350px
+  width: 300px;
+}
+
+.h-no-videos-container {
+  text-align: center;
+  justify-content: center;
+}
+
+.h-content-overview {
+  text-align: center;
 }

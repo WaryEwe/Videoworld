@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .models import VideoModel, CommentModel, CommentReplyModel
-from .forms import VideoForm, CommentForm, CommentReplyForm
+from .forms import VideoForm, CommentForm, CommentReplyForm, SearchForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -76,3 +76,4 @@ def video_view(request, video_id):
     }
 
     return render(request, 'video.html', context)
+

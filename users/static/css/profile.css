@@ -101,22 +101,56 @@ body {
   width: 300px;
 }
 
-.p-banner-edit {
-  display: flex;
-  position: relative;
-  width: 120px;
-  height: 50px;
-  left: 93%;
+.p-edit-desc-container {
+  padding-bottom: 10px;
 }
 
-.p-banner-edit-button,
-input[type="submit"],
-input[type="reset"] {
-  background: none;
-  color: inherit;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
+.p-desc-input input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: black;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  appearance: none;
+  border-color: rgb(233, 233, 233);
+  border: 1px solid #ccc;
+  border-color: white;
+  background-color: #d8d8d8
+}
+
+.p-edit-pfp-container {
+  padding-bottom: 10px;
+
+}
+
+.p-pfp-input input {
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-color: white;
+}
+
+.p-edit-banner-container {
+  padding-bottom: 10px;
+}
+
+.p-banner-edit input {
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-color: white;
 }

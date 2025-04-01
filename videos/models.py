@@ -21,7 +21,7 @@ class VideoModel(models.Model, HitCountMixin):
     video_title = models.CharField(max_length=40, null=False)
     video_desc = models.TextField(max_length=70, null=True, blank=True)
     video_date = models.DateField(null=False, auto_now_add=True)
-    video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4'])], null=False)
+    video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4', 'mov'])], null=False)
     video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)            
     video_view = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     video_likes = models.IntegerField(null=False, default=0)

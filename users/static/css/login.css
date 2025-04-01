@@ -5,11 +5,17 @@ body {
 }
 
 .l-container {
-  margin-top: 35px;
-  display: flex;
-  align-items: center;
-  text-align: center;
   justify-content: center;
+  transform: translateY(50%);
+  display: flex;
+}
+
+.l-box-container {
+  border: 2px solid rgb(233, 233, 233);
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .l-form-block {
@@ -18,9 +24,12 @@ body {
   justify-self: center;
   align-items: center;
   text-align: center;
+  margin-right: 14px;
 }
 
 .l-form-block input {
+  align-items: center;
+  justify-content: center;
   margin: 10px;
   display: flex;
   border-radius: 8px;
@@ -32,7 +41,7 @@ body {
   border: 1px solid #ccc;
   border-color: white;
   transition: border-color 0.3s ease;
-  background-color: gray;
+
 
 }
 

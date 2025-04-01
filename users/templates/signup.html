@@ -3,7 +3,8 @@
 {%block 'main'%}
 <link rel="stylesheet" href="{%static 'css/signup.css'%}">
 <div class="s-container">
-  
+<div class="s-box-container">
+    
 <div class='s-form-block'>
   <form method="POST" name="signup" action="#">
     {%csrf_token%}
@@ -29,5 +30,6 @@
   </div>
   </form>
 </div>
+</div>  
 </div>
 {%endblock 'main'%}

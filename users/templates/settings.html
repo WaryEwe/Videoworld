@@ -1,0 +1,22 @@
+{% load static %}
+{% include "base.html" %}
+<link rel="stylesheet" href="{% static 'css/settings.css'%}">
+{% block main %}
+<div class="s-main-container">
+  
+    <div class="container mt-5">
+      <h2>Settings page</h2>
+<div class="mb-3">
+  <form method="POST">
+   {% csrf_token %} 
+  <label for="exampleFormControlInput1" class="form-label">Change username</label>
+  {{change_username.username}}
+  <button type="submit">Change</button>
+  </form>
+</div>
+<div class="s-deletion-container">
+  <a href="{%url 'delete' username=request.user.username%}" class="btn btn-primary">Delete account</a>
+  
+</div>
+</div>
+{% endblock main %}
