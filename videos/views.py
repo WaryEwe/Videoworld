@@ -52,11 +52,11 @@ def video_view(request, video_id):
     req_video = get_object_or_404(VideoModel, id=video_id)
     video_link = request.path.split('/')[-2] 
     video = VideoModel.objects.get(id=video_id)
+    recommended_videos = VideoModel.objects.all()
     comments = CommentModel.objects.filter(comment_video=video_id)
     video_view = HitCount.objects.get_for_object(video)
     video_count = HitCountMixin.hit_count(request, video_view)
     video_likes = []
-
     if request.method == 'POST':
         comment_f = CommentForm(request.POST)
         if comment_f.is_valid():
@@ -73,7 +73,11 @@ def video_view(request, video_id):
         'video_view':video_view,
         'comment_f':comment_f,
         'comments':comments,
+        'recommended_videos':recommended_videos,
     }
 
     return render(request, 'video.html', context)
 
+def search_view(request, search_query):
+
+    return render(request, 'search.html')

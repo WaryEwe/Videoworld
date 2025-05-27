@@ -6,15 +6,46 @@
 <link rel="stylesheet" href="{% static 'css/video.css'%}">
 <script src="{% static 'hitcount/jquery.postcsrf.js' %}"></script>
 <script src="{% static 'videoplayer.js'%}"></script>
+
+<div class="v-recommended-container">
+  <div class="v-recommended-top-content">
+    
+  <h2>Other Videos</h2>
+  </div>
+  <div class="v-recommended-wrapped">
+    
+  {% for recommended_video in  recommended_videos %}
+
+<div class="v-recommended-card">
+  <a class="v-recommended-link" href="{%url 'video' video_id=recommended_video.id%}">
+
+
+
+
+<div class="card mb-3" >
+      <img src="{{recommended_video.video_thumb.url}}" class="v-recommended-thumb" alt="...">
+    </div>
+      <div class="card-body">
+        <h5 class="card-title">{{recommended_video.video_title}}</h5>
+        <p class="card-text"></p>
+        <p class="card-text"><small class="text-body-secondary">Uploaded {{recommended_video.video_date}}</small></p>
+      </div>
+
+</div>
+
+
+</a>  
+   {% endfor %} 
+  </div>
+ </div>
 <div class="v-main-container">
   <div class="v-content">
     <div class="v-video-container"> 
-    <video width="1180px" height="620px" class="video-controller" controls src="{{video.video_src.url}}">      
+    <video width="1180px" height="620px" class="v-source" controls src="{{video.video_src.url}}">      
     Your browser does not support the video tag.
     </div>
     </video>
   <div class="v-status-container">
-      
 <div class="row mt-3">
         <div class="col-12">
           <div class="v-title-container">
