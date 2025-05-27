@@ -16,7 +16,8 @@ def login_view(request):
         login_f = LoginForm(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        email = request.POST.get('email')
+        user = authenticate(request, username=username, password=password, email=email)
         if user is not None:
             login(request, user)
             return redirect('user', username=username)

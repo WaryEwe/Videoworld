@@ -5,16 +5,47 @@ from .models import ProfileModel
 from django.forms import FileInput
 
 class LoginForm(AuthenticationForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     class Meta:
         model = User 
         fields = ['username', 'password']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['first_name'].widget.attrs.update({'placeholder': 'Enter your first name'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['last_name'].widget.attrs.update({'placeholder': 'Enter your last name'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'placeholder': 'Enter your email'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['username'].widget.attrs.update({'placeholder': 'Enter your username'})
+        self.fields['password'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password'].widget.attrs.update({'placeholder': 'Enter your password'})
 
 class SignupForm(UserCreationForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
-        def __init__(self, *args, **kwargs):
-            self.fields['username'].widget.attrs.update({'class': 'form-control'})
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['first_name'].widget.attrs.update({'placeholder': 'Enter your first name'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['last_name'].widget.attrs.update({'placeholder': 'Enter your last name'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'placeholder': 'Enter your email'})
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['username'].widget.attrs.update({'placeholder': 'Enter a username'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Enter a password'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Enter the same password'})
+
 
 
 class ProfileForm(forms.ModelForm):

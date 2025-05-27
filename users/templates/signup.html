@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="{%static 'css/signup.css'%}">
 <div class="s-container">
 <div class="s-block-container">
-    
+<div class="s-box-container">
+   
 <div class='s-form-block'>
   <form method="POST" name="signup" action="#">
     {%csrf_token%}
@@ -12,23 +13,38 @@
       
       <h4>Signup for a new account</h4>
     </div>
- <div class="mb-3">
-    <label for="username" class="form-label">Enter a username</label>
+
+
+<div class="row g-3">
+  <div class="col">
+    {{signup_f.first_name}}
   </div>
+  <div class="col">
+    {{signup_f.last_name}}
+  </div>
+</div>
+
+
+<div class="mb-3">
+  {{signup_f.email}}
+</div>
+<div class="mb-3">
   {{signup_f.username}}
-  <div class="mb-3">
-    <label for="password1" class="form-label">Enter a password</label>
-    {{signup_f.password1}}
-  </div> 
-  <div class="mb-3">
-    <label for="password1" class="form-label">Enter the same password</label>
-    {{signup_f.password2}}
-  </div>
+</div>
+<div class="mb-3">
+  {{signup_f.password1}}
+</div>
+<div class="mb-3">
+  {{signup_f.password2}}
+</div>
+
+
   <button type="submit" class="btn btn-primary">Signup</button>
   <div class="s-form-redirect">
     <a href="{%url 'login'%}">Already signed up?</a> 
   </div>
   </form>
+</div> 
 </div>
 </div>  
 </div>

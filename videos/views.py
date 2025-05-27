@@ -6,6 +6,7 @@ from .forms import VideoForm, CommentForm, CommentReplyForm, SearchForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.db.models import Q
 from hitcount.models import HitCount
 from hitcount.views import HitCountDetailView 
 from hitcount.views import HitCountMixin
@@ -78,6 +79,11 @@ def video_view(request, video_id):
 
     return render(request, 'video.html', context)
 
-def search_view(request, search_query):
-
-    return render(request, 'search.html')
+def search_view(request):
+    query = request.GET.get('search_results')
+    results = VideoModel.objects.filter(Q(video_title=query, video_desc=query))
+    context = {
+        'results':results,
+        'query':query,
+    }
+    return render(request, 'search.html', context)

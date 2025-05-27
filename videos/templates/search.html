@@ -1,4 +1,32 @@
-{% include "base.html" %}
+<title>{% block title %}{{query}}{% endblock title %}</title>
 {% block main %}
+{% include "base.html" %}
+{% if results %}
 
+{% for result in results %}
+     <div class="s-video-container">
+      <div class="col-md-4 mb-4">
+           <div class="video-thumbnail position-relative">
+             <a href="{%url 'video' video_id=result.id%}">
+              <div class="s-video-thumbnail">
+                <img src="{{result.video_thumb.url}}" alt="Video Thumbnail">
+                 </div>
+                </a>
+               </div>
+               <div class="s-video-title">
+               <h5 class="mt-2">{{result.video_title}}</h5>
+               </div>
+               <p>{{result.hit_count.hits}} views</p>
+               <a href="{%url 'user' username=result.video_uploader%}">
+               <p>{{result.video_uploader}}</p>
+               </a>
+               <div class="s-video-date-container">
+               <p>{{result.video_date}}</p>
+               </div>
+            </div>
+     </div>
+{% endfor %}
+{%else%}
+<p>No results</p>
+{% endif %}
 {% endblock main %}
