@@ -63,4 +63,4 @@ class ProfileForm(forms.ModelForm):
 class ProfileSettingsForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username', 'first_name', 'last_name']

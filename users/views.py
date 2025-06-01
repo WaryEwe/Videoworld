@@ -4,6 +4,7 @@ from .forms import LoginForm, SignupForm, ProfileForm, ProfileSettingsForm
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import ProfileModel
+from django.contrib import messages
 from django.urls import reverse
 from videos import models
 from hitcount.models import HitCount
@@ -28,6 +29,8 @@ def login_view(request):
     context = {
         'login_f': login_f,
     }
+    if request.user.is_authenticated:
+        return redirect('user', username=request.user.username)
     return render(request, 'login.html', context)
 
 def signup_view(request):
@@ -36,11 +39,14 @@ def signup_view(request):
         if signup_f.is_valid():
             signup_f.save()
             return redirect('login')
+            
     else:
         signup_f = SignupForm()
     context = {
         'signup_f': signup_f,
     }
+    if request.user.is_authenticated:
+        return redirect('user', username=request.user.username)
     return render(request, 'signup.html', context)
 
 def profile_view(request, username):
@@ -78,21 +84,22 @@ def logout_view(request):
 @login_required(login_url='login')
 def settings_view(request):
     if request.method == 'POST':
-        change_username = ProfileSettingsForm(request.POST, instance=request.user)
-        if change_username.is_valid():
-            change_username.save()
+        change_user = ProfileSettingsForm(request.POST, instance=request.user)
+        if change_user.is_valid():
+            change_user.save()
             return redirect('settings')
 
     else:
-        change_username = ProfileSettingsForm(instance=request.user)
+        change_user = ProfileSettingsForm(instance=request.user)
     context = {
-        'change_username':change_username
+        'change_user':change_user
     }
     return render(request, 'settings.html', context)
 
 @login_required(login_url='login')
 def delete_view(request, username):
     request.user.delete()
+
     return redirect('home')
 
     

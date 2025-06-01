@@ -10,7 +10,9 @@
   <form method="POST">
    {% csrf_token %} 
   <label for="exampleFormControlInput1" class="form-label">Change username</label>
-  {{change_username.username}}
+  {{change_user.username}}
+  <label for="exampleFormControlInput1" class="form-label">Change first name</label>
+  {{change_user.first_name}}
   <button type="submit">Change</button>
   </form>
 </div>

@@ -1,9 +1,10 @@
-<title>{% block title %}{{query}}{% endblock title %}</title>
-{% block main %}
-{% include "base.html" %}
-{% if results %}
+{% extends "base.html" %}
+<title>{% block 'title' %}{{query}}{% endblock 'title' %}</title>
+{% block 'main' %}
+{% if results and query%}
 
 {% for result in results %}
+<center>
      <div class="s-video-container">
       <div class="col-md-4 mb-4">
            <div class="video-thumbnail position-relative">
@@ -25,8 +26,11 @@
                </div>
             </div>
      </div>
+</center>
 {% endfor %}
+{%elif not query%}
+<p>The query cannot be emty</p>
 {%else%}
 <p>No results</p>
 {% endif %}
-{% endblock main %}
+{% endblock 'main' %}

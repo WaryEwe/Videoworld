@@ -1,5 +1,5 @@
-<title>{% block title %}{{video.video_title}}{% endblock title %}</title>
-{%include 'base.html'%}
+{%extends 'base.html'%}
+<title>{% block 'title' %}{{video.video_title}}{% endblock 'title' %}</title>
 {% load static %}
 {% load hitcount_tags %}
 {%block 'main'%}
@@ -28,7 +28,7 @@
       <div class="card-body">
         <h5 class="card-title">{{recommended_video.video_title}}</h5>
         <p class="card-text"></p>
-        <p class="card-text"><small class="text-body-secondary">Uploaded {{recommended_video.video_date}}</small></p>
+        <p class="card-text"><small class="text-body-secondary">{{recommended_video.video_date}}</small></p>
       </div>
 
 </div>
@@ -86,6 +86,7 @@
               
             {{comment_f.comment_text}}
             </div>
+            <br>
             <button class="btn btn-primary">Publish</button>
           </form>
         </div>
@@ -93,7 +94,7 @@
 </div>
 {%else%}
 <div class="v-non-account-container">
-<p>You must be logged in to be able to comment <a href="{%url 'login' %}">Login</a></p>
+<p class="btn">You must be logged in to be able to comment <a href="{%url 'login' %}">Login</a></p>
 </div>
 
 {% endif %}
@@ -102,21 +103,20 @@
 
     <h4>Comments {{comments|length}}</h4>
       {% if comments %}
-        {% for c in comments %}
+        {% for comment in comments %}
         <div class="v-comment-container">
         <div class="card mb-4">
           <div class="card-body">
-            <p>{{c.comment_text}}</p>
+            <p>{{comment.comment_text}}</p>
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-row align-items-center">
-                <img
-                  src="{{c.comment_picture.user_picture.url}}"
+                <img src="{{ comment.comment_picture.user_picture.url}}"
                   alt="avatar"
                   width="25"
                   height="25"
                   />
-                <p class="small mb-0 ms-2">{{c.comment_author}}</p>
-                <p class="small mb-0 ms-2">{{c.comment_date}}</p>
+                <p class="small mb-0 ms-2">{{comment.comment_author}}</p>
+                <p class="small mb-0 ms-2">{{comment.comment_date}}</p>
               </div>
             </div>
           </div>

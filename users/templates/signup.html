@@ -31,19 +31,29 @@
 <div class="mb-3">
   {{signup_f.username}}
 </div>
+
 <div class="mb-3">
   {{signup_f.password1}}
 </div>
 <div class="mb-3">
   {{signup_f.password2}}
 </div>
-
-
+{% if signup_f.username.errors or signup_f.password1.errors or signup_f.password2.errors%}
+<div class="s-error-block">
+  
+  <div class="text-danger">
+    {{signup_f.username.errors}}
+    {{signup_f.password1.errors}}
+    {{signup_f.password2.errors}}
+  </div>
+</div>
+  {%endif%}
   <button type="submit" class="btn btn-primary">Signup</button>
   <div class="s-form-redirect">
     <a href="{%url 'login'%}">Already signed up?</a> 
-  </div>
   </form>
+
+</div>
 </div> 
 </div>
 </div>  

@@ -81,7 +81,8 @@ def video_view(request, video_id):
 
 def search_view(request):
     query = request.GET.get('search_results')
-    results = VideoModel.objects.filter(Q(video_title=query, video_desc=query))
+    results = VideoModel.objects.filter(Q(video_title__icontains=query) | Q(video_desc__icontains=query))
+
     context = {
         'results':results,
         'query':query,
