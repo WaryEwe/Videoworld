@@ -80,6 +80,8 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
         return redirect('home')
+    else:
+        return redirect('home')
 
 @login_required(login_url='login')
 def settings_view(request):

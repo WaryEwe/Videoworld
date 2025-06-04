@@ -71,8 +71,7 @@ def video_view(request, video_id):
     context = {
         'video_link':video_link,
         'video':video,
-        'video_view':video_view,
-        'comment_f':comment_f,
+        'video_view':video_view, 'comment_f':comment_f,
         'comments':comments,
         'recommended_videos':recommended_videos,
     }
@@ -81,6 +80,8 @@ def video_view(request, video_id):
 
 def search_view(request):
     query = request.GET.get('search_results')
+    if query == None:
+        return redirect('home')
     results = VideoModel.objects.filter(Q(video_title__icontains=query) | Q(video_desc__icontains=query))
 
     context = {

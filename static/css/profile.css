@@ -15,10 +15,12 @@ body {
 .p-banner-container img {
   display: flex;
   max-height: 250px;
+  border-radius: 4px;
 }
 
 .profile-header {
   padding: 40px 0;
+  max-height: 550px;
 }
 
 
@@ -50,10 +52,7 @@ body {
 
 
 .p-content-overview-container {
-  margin-bottom: 45px;
   display: flex;
-  position: relative;
-  transform: translateY(-110%);
 }
 
 .p-videos-container {
@@ -66,31 +65,28 @@ body {
   display: flex;
   position: relative;
   width: 300px;
-  height: 160px;
-  margin-right: 20px;
+  height: 170px;
+  margin-right: 16px;
   margin-bottom: 200px;
   background-color: black;
 }
 
 .p-video-container img {
-  height: 160px;
+  height: 170px;
   width: 300px;
 }
 
 .p-content-container {
   display: flex;
-  transform: translateY(-20%);
   position: relative;
   flex-direction: flex-start;
   flex-wrap: wrap;
-
 }
 
 .p-no-videos-container {
   display: flex;
   position: absolute;
   text-align: flex-start;
-  transform: translateY(-420%);
 }
 
 .p-video-title-container {

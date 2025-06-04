@@ -10,47 +10,44 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css'%}">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">VideoWorld</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-     <!--   <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li> -->
-      </ul>
-      <div>
-      <form class="d-flex" role="search" action="{%url 'search' %}" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_results" value="{{request.GET.search_results}}"/>
-        <button class="btn btn-outline-success" type="submit" >Search</button>
-      </form> 
-      </div>
-      <div class="n-user-ref">
-      <li class="nav-item">
-   {% if user.is_authenticated %} 
-<div class="btn-group">
-      
-  <button type="button" class="n-menu-user-button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-    <img src="{{user.profilemodel.user_picture.url}}" width=46px height=46px alt="">
-  </button>
-  <ul class="dropdown-menu dropdown-menu-lg-end">
-    <li><a href="{%url 'user' username=request.user.username%}" class="dropdown-item" type="button">My Profile</a></li>
-    <li><a href="{%url 'settings'%}" class="dropdown-item" type="button">Settings</a></li>
-    <li><a href="{%url 'logout' %}" class="dropdown-item" type="button">Log out</a></li>
-  </ul>
-</div>
-<!--   <a class="nav-link" href="{%url 'logout' %}">Logout</a>-->
-   {%else%} 
-   <div class="nav-link">
-     
-   <a class="btn btn-primary" href="{%url 'login' %}">Login</a>
-   </div>
-   {% endif %}
-        </li>
 
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="d-flex align-items-center justify-content-between w-100 gap-3">
+
+        <!-- Centered Search Form -->
+        <form class="d-flex flex-grow-1 mx-auto" action="{%url 'search'%}" role="search" style="max-width: 600px;">
+          <input class="form-control me-2" type="search" name="search_results"
+                 placeholder="Search for videos"
+                 aria-label="Search"
+                 value="{{ request.GET.search_results }}">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <!-- Right-side Auth Section -->
+        {% if user.is_authenticated %}
+          <div class="btn-group">
+            <button type="button" class="n-menu-user-button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+              <img src="{{ user.profilemodel.user_picture.url }}" width="46" height="46" class="rounded-circle" alt="User Avatar">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a href="{% url 'user' username=request.user.username %}" class="dropdown-item">My Profile</a></li>
+              <li><a href="{% url 'settings' %}" class="dropdown-item">Settings</a></li>
+              <li><a href="{% url 'logout' %}" class="dropdown-item">Log out</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+        {% endif %}
       </div>
     </div>
   </div>

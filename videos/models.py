@@ -7,7 +7,7 @@ import os, ffmpeg, subprocess
 from hitcount.models import HitCountMixin
 from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
-import users 
+import users,datetime
 
 
 def gen_folder(instance, filename):
@@ -20,20 +20,20 @@ class VideoModel(models.Model, HitCountMixin):
     video_uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     video_title = models.CharField(max_length=40, null=False)
     video_desc = models.TextField(max_length=70, null=True, blank=True)
-    video_date = models.DateField(null=False, auto_now_add=True)
+    video_date = models.DateTimeField(null=False, auto_now=True)
     video_src = models.FileField(upload_to=gen_folder, validators=[FileExtensionValidator(['mp4', 'mov'])], null=False)
-    video_thumb = models.ImageField(upload_to=gen_folder, null=True, blank=True)            
+    video_thumb = models.ImageField(upload_to=gen_folder, default="thumbnails/default_thumbnail.png", null=False)
     video_view = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     video_likes = models.IntegerField(null=False, default=0)
 
 
     def gen_thumb(self):
         video_path = self.video_src.path
-        thumb_filename = f'{self.id}thumb.jpg'
-        thumb_dir = os.path.join(settings.MEDIA_ROOT, 'thumbnail') 
+        thumb_filename = f'{self.video_title}thumbnail.jpg'
+        thumb_dir = os.path.join(settings.MEDIA_ROOT, 'thumbnails') 
         os.makedirs(thumb_dir, exist_ok=True)
         thumb_path = os.path.join(thumb_dir, thumb_filename)
-        subprocess.call(['ffmpeg', '-i', video_path, '-ss', '00:00:00.000','-vframes', '1', '-f', 'image2', thumb_path])
+        subprocess.call(['ffmpeg', '-i', video_path, '-ss', '00:00:00.000', '-vframes', '1', '-f', 'image2', thumb_path])
         self.video_thumb = os.path.relpath(thumb_path, settings.MEDIA_ROOT)
         self.save_thumb(thumb_path)
 
@@ -44,9 +44,8 @@ class VideoModel(models.Model, HitCountMixin):
 class CommentModel(models.Model):
     comment_author = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     comment_video = models.ForeignKey(VideoModel, null=False, on_delete=models.CASCADE, default=1)
-    comment_picture = models.ForeignKey(users.models.ProfileModel, null=False, on_delete=models.CASCADE, default=1)
     comment_text = models.TextField(max_length=100, null=False, blank=False)
-    comment_date = models.DateField(auto_now_add=True, null=False)
+    comment_date = models.DateTimeField(auto_now_add=True, null=False)
 
 class CommentReplyModel(models.Model):
     comment_author = models.ForeignKey(User, null=False, on_delete=models.CASCADE)

@@ -86,24 +86,22 @@
   </div>
 </div>
 <div class="container p-content-container">
-   <div class="col-md-9">
      {% if not videos %}
      <div class="p-no-videos-container"> 
      <p>This account haven't posted any videos yet</p>
      </div>
      {% endif %}
      {% if videos %} 
-
        <div class="p-content-overview-container">
-         <h3>Your videos</h3>
+         <h3 class="mb-4">Uploads</h3>
        </div>
      <div class="p-content-container">
        {% for v in videos  %}
        <div class="p-video-container">
-         <div class="col-md-4 mb-4">
+         <div class="col-md-4 mb-2 flex-wrap" style="width: 300px;">
            <div class="video-thumbnail position-relative">
             <a href="{%url 'video' video_id=v.id%}">
-                <img src="{{v.video_thumb.url}}" alt="Video Thumbnail">
+                  <img src="{{v.video_thumb.url}}" alt="thumb" class="me-2" width="250" height="120" style="border-radius: 5px;">
                  </div>
                  <div class="p-video-thumbnail">
                 </a>
@@ -115,7 +113,7 @@
                  <p>{{v.hit_count.hits}} views</p>
                </div>
                   <div class="p-video-date-container">
-                 <p>{{v.video_date}}</p>
+                 <p>{{v.video_date.date}}</p>
                   </div>
                     </div>
                   </div> 
@@ -124,4 +122,3 @@
        </div>
      
 {%endblock 'main'%}
-

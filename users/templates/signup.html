@@ -1,5 +1,6 @@
+{%extends 'base.html'%}
 {% load static %}
-{%include 'base.html'%}
+<title>{% block 'title' %}Signup{% endblock 'title' %}</title>
 {%block 'main'%}
 <link rel="stylesheet" href="{%static 'css/signup.css'%}">
 <div class="s-container">

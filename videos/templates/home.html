@@ -1,64 +1,48 @@
-{%extends 'base.html'%}
-<title>{% block 'title' %}VideoWorld{% endblock 'title' %}</title>
+{% extends 'base.html' %}
 {% load static %}
 {% load hitcount_tags %}
-{%block 'main'%}
 
-<link rel="stylesheet" href="{%static 'css/home.css'%}">
-  
-<div class="h-main">
-  <div class="h-overview-container">
-    <div class="h-welcome-container">
-      
-   <h1>Welcome to VideoWorld!</h1> 
-    </div>
- {% if user.is_authenticated %}
- <div class="h-account-refer-container">
-   
- <p>You're currently logged in as <a href="{%url 'user' username=username%}">{{user.username}}</a></p> 
- </div>
- {%else%}
+{% block title %}VideoWorld{% endblock %}
+
+{% block 'main' %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<div class="container mt-4 h-main">
+  <!-- Welcome Section -->
+  <div class="mb-4 text-center">
+    <h1 class="fw-bold">Welcome to VideoWorld!</h1>
+    {% if user.is_authenticated %}
+      <p>You're currently logged in as <a href="{% url 'user' username=username %}">{{ user.username }}</a></p>
+    {% endif %}
   </div>
- {% endif %}  
-   <div class="h-content-container">
-     {% if videos %}
-     <div class="h-content-overview">
-       
-     <h2>Latest videos</h2>
-     </div>
-     <div class="h-videos-container"> 
-     {% for v in videos %}
-     <div class="h-video-container">
-      <div class="col-md-4 mb-4">
-           <div class="video-thumbnail position-relative">
-             <a href="{%url 'video' video_id=v.id%}">
-              <div class="h-video-thumbnail">
-                <img src="{{v.video_thumb.url}}" alt="Video Thumbnail">
-                 </div>
-                </a>
-               </div>
-               <div class="h-video-title">
-               <h5 class="mt-2">{{v.video_title}}</h5>
-               </div>
-               <p>{{v.hit_count.hits}} views</p>
-               <a href="{%url 'user' username=v.video_uploader%}">
-               <p>{{v.video_uploader}}</p>
-               </a>
-               <div class="h-video-date-container">
-                 
-               <p>{{v.video_date}}</p>
-               </div>
-            </div>
-     </div>
-     {% endfor %}
-     </div>
-     {%else%}
-     <div class="h-no-videos-container">
-       
-     <p>No videos have been uploaded yet</p>
-     </div>
-     {% endif %}
-   </div>
 
+  <div class="h-content-container">
+    {% if videos %}
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-semibold">Latest Videos</h2>
+      </div>
 
-{%endblock 'main'%}
+      <div class="d-flex flex-wrap gap-3 justify-content-start">
+        {% for video in videos %}
+          <div class="col-md-2 mb-2" style="width: 300px;">
+            <a href="{% url 'video' video_id=video.id %}" class="text-decoration-none text-light mb-2" >
+              <img src="{{ video.video_thumb.url }}" class="card-img-top" alt="Video Thumbnail" style="height: 170px; object-fit: cover; border-radius: 5px;">
+              <div class="col-mb-2">
+                <h5 class="mb-2">{{ video.video_title }}</h5>
+                <p class="card-text text-muted small mb-1">{{ video.hit_count.hits }} views • {{ video.video_date|timesince }} ago</p>
+                <p class="card-text text-muted small mb-0">
+                  <a href="{% url 'user' username=video.video_uploader %}" class="text-decoration-none">{{ video.video_uploader }}</a>
+                </p>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-secondary text-center mt-5">
+        <p>No videos have been uploaded yet.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock 'main'%}
