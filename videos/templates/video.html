@@ -1,126 +1,81 @@
-{%extends 'base.html'%}
-{%load static %}
-{% load widget_tweaks %}
+
+{% extends 'base.html' %}
+{% load static %}
 {% load hitcount_tags %}
-<title>{% block 'title' %}{{req_user.username}}{% endblock 'title' %}</title>
-{%block 'main'%}
-<link rel="stylesheet" href="{% static 'css/profile.css'%}">
-<div class="container profile-header text-center">
-  <div class="p-banner-container">
-   <img src="{{curr_user.user_banner.url}}" class="img-fluid" width="1500px" height="150px" alt="Profile Banner">
-  </div>
-  <div class="p-fields-container">
-    <div class="row">
-      <div class="col-12">
-        <div class="p-picture-container">
-          <img src="{{curr_user.user_picture.url}}" width="150px" alt="Profile Picture" class="profile-picture">
-        </div>
-        <div class="p-info-container">
-          <div class="p-username-container">
-            <h2 class="mt-3">@{{req_user.username}}</h2>
-          </div>
-          <div class="p-desc-container">
 
-            <p class="text-muted">{{curr_user.user_desc}}</p>
-          </div>
-          <div class="p-joined-container">
-            <p class="mt-3">Joined {{req_user.date_joined.date}}</p>
-          </div>
-          {% if user.username == req_user.username %}
+{% block 'title' %}{{ video.video_title }} - Video{% endblock 'title' %}
 
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#peditmodal">Edit profile</button>
-          <a href={%url 'upload' %} class="btn btn-primary">Upload</a>
-          {%else%}
-          <button class="btn btn-primary">Follow</button>
-          {% endif %}
+{% block 'main' %}
+<link rel="stylesheet" href="{% static 'css/video.css' %}">
+<script src="{% static 'hitcount/jquery.postcsrf.js' %}"></script>
+<script src="{% static 'js/videoplayer.js' %}"></script>
+<div class="main">
+  
+<div class="container-fluid mt-4">
+  <div class="row">
+    
+    <div class="col-lg-8">
+      <div class="ratio ratio-16x9 mb-3">
+        <video class="w-100 h-100" style="border-radius: 6px;" controls src="{{ video.video_src.url }}">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <h2 class="fw-bold">{{ video.video_title }}</h2>
+      <p class="text-muted mb-1">{{ video_view.hits }} views • {{ video.video_date.date }}</p>
+      <p>Uploaded by <a href="{% url 'user' username=video.video_uploader %}">{{ video.video_uploader }}</a></p>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title">Description</h5>
+          <p class="card-text">{{ video.video_desc|default:"This video doesn't contain a description." }}</p>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<div class="p-edit-modal">
-  <div class="modal fade" id="peditmodal" tabindex="-1" aria-labelledby="profileeditmodallabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="peditmodallabel">Edit your profile</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="mt-4">
+        <h4 class="mb-3">Comments {{ comments|length }}</h4>
+
+        {% if user.is_authenticated %}
+        <form method="POST" class="mb-4">
+          {% csrf_token %}
+          {{ comment_f.comment_text }}
+          <button class="btn btn-primary mt-2">Publish</button>
+        </form>
+        {% else %}
+        <div class="alert alert-warning">You must <a href="{% url 'login' %}">log in</a> to comment.</div>
+        {% endif %}
+        
+        {% for comment in comments %}
+        <div class="card mb-3">
+          <div class="card-body d-flex align-items-center">
+            <img src="{{ comment.comment_author.profilemodel.user_picture.url }}" alt="avatar" class="rounded-circle me-2" width="40" height="40">
+            <div>
+              <p class="mb-1"><strong>{{ comment.comment_author }}</strong> • {{ comment.comment_date | timesince}} ago</p>
+              <p class="mb-0">{{ comment.comment_text }}</p>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <form action=# method="post" enctype=multipart/form-data>
-            {% csrf_token %}
-            <div class="p-edit-desc-container">
-              
-            <label for="user_desc">Update your description</label>
-            <div class="p-desc-input">
-              
-            {{user_f.user_desc}}
-            </div>
-            </div>
-            <div class="p-edit-pfp-container">
-              
-                
-            <label for="user_picture">Edit your profile picture</label>
-            <div class="p-pfp-input">
-              {{user_f.user_picture}}
-              </div>
-            </div>
-            <div class="p-edit-banner-container">
-              
-
-
-            <label for="user_banner">Change your profile banner</label>
-            <div class="p-banner-edit">
-            {{user_f.user_banner}}
-            </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-          </form>
-        </div>
+        {% endfor %}
       </div>
     </div>
+
+    <div class="col-lg-4">
+      <h5>Recommended</h5>
+      {% for recommended_video in recommended_videos %}
+      <a href="{% url 'video' video_id=recommended_video.id %}" class="text-decoration-none text-light">
+        <div class="d-flex mb-3">
+          <img src="{{ recommended_video.video_thumb.url }}" alt="thumb" class="me-2" width="220" height="120" style="border-radius: 6px;">
+          <div>
+            <h6 class="mb-1">{{ recommended_video.video_title }}</h6>
+            <p class="text-muted small mb-0">{{ recommended_video.video_uploader }}</p>
+            <p class="text-muted small">{{ recommended_video.video_date.date}}</p>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
   </div>
 </div>
-<div class="container p-content-container">
-   <div class="col-md-9">
-     {% if not videos %}
-     <div class="p-no-videos-container"> 
-     <p>This account haven't posted any videos yet</p>
-     </div>
-     {% endif %}
-     {% if videos %} 
-
-       <div class="p-content-overview-container">
-         <h3>Your videos</h3>
-       </div>
-     <div class="p-content-container">
-       {% for v in videos  %}
-       <div class="p-video-container">
-         <div class="col-md-4 mb-4">
-           <div class="video-thumbnail position-relative">
-            <a href="{%url 'video' video_id=v.id%}">
-                <img src="{{v.video_thumb.url}}" alt="Video Thumbnail">
-                 </div>
-                 <div class="p-video-thumbnail">
-                </a>
-               </div>
-               <div class="p-video-title-container">
-                <h5 class="mt-2">{{v.video_title}}</h5>
-               </div>
-               <div class="p-video-view-container">
-                 <p>{{v.hit_count.hits}} views</p>
-               </div>
-                  <div class="p-video-date-container">
-                 <p>{{v.video_date}}</p>
-                  </div>
-                    </div>
-                  </div> 
-                    {% endfor %}
-       {% endif %}
-       </div>
-     
-{%endblock 'main'%}
+</div>
+{% endblock %}
