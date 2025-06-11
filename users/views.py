@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm, SignupForm, ProfileForm, ProfileSettingsForm
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import User
-from .models import ProfileModel
+from .models import ProfileModel, ProfileFollow
 from django.contrib import messages
 from django.urls import reverse
 from videos import models
@@ -55,6 +55,9 @@ def profile_view(request, username):
    videos = models.VideoModel.objects.filter(video_uploader=req_user).order_by('-video_date')
    url_user = reverse('user', kwargs={'username': username})
    img_user = ProfileModel.objects.filter(user_id=req_user.id)
+   followers = ProfileFollow.objects.filter(following=req_user.id).count()
+   is_following = request.user.following.filter(following=req_user.id).exists()
+
    if request.method == 'POST':
         user_f = ProfileForm(request.POST, request.FILES, instance=curr_user) 
         if user_f.is_valid(): 
@@ -69,6 +72,8 @@ def profile_view(request, username):
         'user_f':user_f,
         'curr_user':curr_user,
         'img_user':img_user,
+        'followers':followers,
+        'is_following':is_following,
 
     }
    return render(request, 'profile.html', context)
@@ -99,9 +104,23 @@ def settings_view(request):
     return render(request, 'settings.html', context)
 
 @login_required(login_url='login')
-def delete_view(request, username):
+def delete_user(request, username):
     request.user.delete()
 
     return redirect('home')
+@login_required(login_url='login')
+def follow_user(request, user_id):
+    user_to_follow = get_object_or_404(User, id=user_id)
+    if not request.user.following.filter(id=user_id).exists():
+        ProfileFollow.objects.create(follower=request.user, following=user_to_follow)
+    else:
+        return redirect('home')
+    return redirect('user_id_url', user_id=user_id)
 
-    
+@login_required(login_url='login')
+def unfollow_user(request, user_id):
+    user_to_unfollow = get_object_or_404(User, id=user_id)
+    request.user.following.filter(id=user_id).delete()
+    return redirect('user_id_url', user_id=user_id)
+
+        

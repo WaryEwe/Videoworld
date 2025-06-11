@@ -89,3 +89,4 @@ def search_view(request):
         'query':query,
     }
     return render(request, 'search.html', context)
+

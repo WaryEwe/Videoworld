@@ -23,7 +23,9 @@
 
       <h2 class="fw-bold">{{ video.video_title }}</h2>
       <p class="text-muted mb-1">{{ video_view.hits }} views • {{ video.video_date.date }}</p>
-      <p>Uploaded by <a href="{% url 'user' username=video.video_uploader %}">{{ video.video_uploader }}</a></p>
+      <div class="h-uploader-wrapped">
+      <p class="mb-1">Uploaded by <a href="{% url 'user' username=video.video_uploader %}">{{ video.video_uploader }}</a></p>
+      </div>
 
       <div class="card mt-3">
         <div class="card-body">
@@ -64,7 +66,7 @@
       {% for recommended_video in recommended_videos %}
       <a href="{% url 'video' video_id=recommended_video.id %}" class="text-decoration-none text-light">
         <div class="d-flex mb-3">
-          <img src="{{ recommended_video.video_thumb.url }}" alt="thumb" class="me-2" width="220" height="120" style="border-radius: 6px;">
+          <img src="{{ recommended_video.video_thumb.url }}" alt="thumb" class="me-2" width="200" height="120" style="border-radius: 6px;">
           <div>
             <h6 class="mb-1">{{ recommended_video.video_title }}</h6>
             <p class="text-muted small mb-0">{{ recommended_video.video_uploader }}</p>
